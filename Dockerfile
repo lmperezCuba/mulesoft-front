@@ -19,6 +19,8 @@ ENV COMPOSE_HTTP_TIMEOUT=200
 
 WORKDIR /home/node/app
 
+RUN npm install @angular/cli
+
 # COPY --chown=node:node package*.json ./
 # RUN chown -R node:node /home/node/app
 # USER node
