@@ -103,9 +103,21 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "mulesoft-frontend-angular"
+  "defaultProject": "mulesoft-frontend-angular",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
