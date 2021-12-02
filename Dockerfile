@@ -20,8 +20,8 @@ ENV COMPOSE_HTTP_TIMEOUT=200
 WORKDIR /home/node/app
 
 # COPY --chown=node:node package*.json ./
-RUN chown -R node:node /home/node/app
-USER node
+# RUN chown -R node:node /home/node/app
+# USER node
 
 # RUN npm run install
 #RUN yarn config set strict-ssl false \
@@ -29,7 +29,7 @@ USER node
 #&& yarn install --network-timeout 1000000 --no-optional \
 #&& yarn cache clean --force
 
-COPY --chown=node:node . .
+COPY . .
 
 #----------------------
 #   Deployment stage
