@@ -1,0 +1,45 @@
+<app-header></app-header>
+<!--
+  <app-header>
+  <button aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+    <mat-icon class="menu-icon">menu</mat-icon>
+  </button>
+  <span>Mulesoft Shop</span>
+  <span class="toolbar-spacer"></span>
+  <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon">
+    <mat-icon fontSet="material-icons-outlined" [routerLink]="['/dashboard']">home</mat-icon>
+  </button>
+  <button mat-icon-button class="control-item favorite-icon" aria-label="icon-button with heart icon">
+    <mat-icon fontSet="material-icons-outlined">notifications</mat-icon>
+  </button>
+  <button mat-icon-button class="control-item" aria-label="icon-button with help outline icon">
+    <mat-icon fontSet="material-icons-outlined">help_outlined</mat-icon>
+  </button>
+  <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon">
+    <mat-icon fontSet="material-icons-outlined">account_circle</mat-icon>
+  </button>
+
+  <div class="control-item example-icon" *ngIf="!theme">
+    <div class="ai-toggle" (click)="changeTheme()">
+      <mat-icon fontSet="material-icons-outlined">light_mode</mat-icon>
+      <mat-icon fontSet="material-icons-outlined">dark_mode</mat-icon>
+      <div [ngClass]="themeClass"></div>
+    </div>
+  </div>
+</app-header>
+
+<mat-sidenav-container>
+  <mat-sidenav #drawer [mode]="mobileQuery.matches ? 'side' : 'over'" [fixedTopGap]="0" [opened]="mobileQuery.matches"
+    [disableClose]="mobileQuery.matches">
+    <div>
+      <app-sidebar></app-sidebar>
+    </div>
+
+  </mat-sidenav>
+  <mat-sidenav-content class="page-wrapper">
+    <div class="page-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+-->
