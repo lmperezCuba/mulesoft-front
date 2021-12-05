@@ -1,5 +1,4 @@
-import { ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
-import { MediaMatcher } from '@angular/cdk/layout';
+import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({
@@ -7,12 +6,12 @@ import { OverlayContainer } from '@angular/cdk/overlay';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnDestroy, OnInit {
-
+export class HeaderComponent implements OnInit {
+  @Output() drawer: EventEmitter<boolean> = new EventEmitter();
   @HostBinding('class') className = '';
   @Input() theme: boolean | undefined;
   @Input() hasMenu = false;
-  mobileQuery: MediaQueryList;
+  activeDrawer = true;
   currentTheme = 'corporate';
   themeClass = {
     'ai-toggle-switcher': true,
@@ -20,24 +19,12 @@ export class HeaderComponent implements OnDestroy, OnInit {
     'ai-toggle-switcher-dark': this.currentTheme === 'dark',
   };
 
-  private readonly mobileQueryListener: () => void;
-
   constructor(
-    changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher,
     private overlay: OverlayContainer
-  ) {
-    this.mobileQuery = media.matchMedia('(min-width: 768px)');
-    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addEventListener('change', this.mobileQueryListener);
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loadTheme();
-  }
-
-  ngOnDestroy(): void {
-    this.mobileQuery.removeEventListener('change', this.mobileQueryListener);
   }
 
   /**
@@ -76,7 +63,10 @@ export class HeaderComponent implements OnDestroy, OnInit {
     }
   }
 
-  drawer() {
-    // Open drawer
+  /**
+   * Emit an event when the menu is selected
+   */
+  clickDrawer() {
+    this.drawer.emit(this.activeDrawer = !this.activeDrawer);
   }
 }

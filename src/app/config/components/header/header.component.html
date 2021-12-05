@@ -1,5 +1,5 @@
 <mat-toolbar class="mat-elevation-z6" color="primary">
-  <button *ngIf="hasMenu" aria-label="Toggle sidenav" mat-icon-button (click)="drawer">
+  <button *ngIf="hasMenu" aria-label="Toggle sidenav" mat-icon-button (click)="clickDrawer()">
     <mat-icon class="menu-icon">menu</mat-icon>
   </button>
   <span>Mulesoft Dashboard</span>
@@ -19,14 +19,4 @@
     <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon">
       <mat-icon>light_mode</mat-icon>
     </button>
-
-<!--
-    <div class="control-item example-icon" *ngIf="!theme">
-    <div class="ai-toggle" (click)="changeTheme()">
-      <mat-icon fontSet="material-icons-outlined">light_mode</mat-icon>
-      <mat-icon fontSet="material-icons-outlined">dark_mode</mat-icon>
-      <div [ngClass]="themeClass"></div>
-    </div>
-  </div>
--->
 </mat-toolbar>
