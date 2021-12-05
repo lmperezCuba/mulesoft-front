@@ -1,15 +1,11 @@
+import { ListComponent } from './list.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'list',
-    loadChildren: () => import('./list/list.module').then(m => m.ListModule)
-  },
-  {
     path: '',
-    redirectTo: 'list',
-    pathMatch: 'full'
+    component: ListComponent
   }
 ];
 
@@ -17,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class UsersRoutingModule { }
+export class ListRoutingModule { }
