@@ -1,0 +1,24 @@
+mat-sidenav-container {
+  // background: #f5fafa;
+  z-index: unset;
+}
+
+mat-sidenav {
+  min-width: 16rem;
+  border-right: none;
+}
+
+.page-wrapper {
+  height: calc(100vh - 64px);
+
+  .page-content {
+    padding: 20px;
+  }
+}
+
+.control-item {
+  display: flex;
+  align-items: center;
+  width: auto;
+  padding: 0 1rem;
+}
