@@ -10,7 +10,7 @@ const MENUITEMS: INavItem[] = [
   {
     displayName: 'Roles',
     iconName: 'admin_panel_settings',
-    route: 'roles',
+    route: 'admin/roles',
   },
   {
     displayName: 'Products',
