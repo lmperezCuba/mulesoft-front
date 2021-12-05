@@ -1,5 +1,6 @@
-import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { SecurityService } from '../../services/security.service';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +16,9 @@ export class HeaderComponent implements OnInit {
   currentTheme = 'light';
 
   constructor(
-    private overlay: OverlayContainer
+    // private overlay: OverlayContainer,
+    private securityService: SecurityService,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit(): void {
@@ -26,8 +29,6 @@ export class HeaderComponent implements OnInit {
    * Switch between themes light and dark.
    */
   changeTheme(): void {
-    console.log('d');
-    
     if (this.currentTheme === 'dark') {
       localStorage.setItem('theme', 'light');
       this.currentTheme = 'light';
@@ -37,10 +38,12 @@ export class HeaderComponent implements OnInit {
     }
     if (this.currentTheme === 'dark') {
       this.className = 'dark-theme';
-      this.overlay.getContainerElement().parentElement?.classList.add('dark-theme');
+      this.renderer.addClass(document.body, 'dark-theme');
+      // this.overlay.getContainerElement().parentElement?.parentElement?.classList.add('dark-theme');
     } else {
       this.className = '';
-      this.overlay.getContainerElement().parentElement?.classList.remove('dark-theme');
+      this.renderer.removeClass(document.body, 'dark-theme');
+      // this.overlay.getContainerElement().parentElement?.parentElement?.classList.remove('dark-theme');
     }
   }
 
@@ -59,5 +62,12 @@ export class HeaderComponent implements OnInit {
    */
   clickDrawer() {
     this.drawer.emit(this.activeDrawer = !this.activeDrawer);
+  }
+
+  /**
+   * Logout front the app
+   */
+  logout(){
+    this.securityService.logout();
   }
 }

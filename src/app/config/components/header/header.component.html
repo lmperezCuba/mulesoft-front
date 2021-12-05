@@ -16,6 +16,9 @@
   <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon">
     <mat-icon>account_circle</mat-icon>
   </button>
+  <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon" (click)="logout()">
+    <mat-icon>logout</mat-icon>
+  </button>
   <ng-container *ngIf="currentTheme==='light'; else darkIcon">
     <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon"
       (click)="changeTheme()">
