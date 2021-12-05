@@ -1,0 +1,35 @@
+<section fxLayout="row" fxLayoutAlign="center center" class="form-container">
+  <mat-card class="mat-elevation-z8" fxFlex.md="40" fxFlex.lg="25">
+    <mat-card-content fxLayout="column" fxLayoutAlign="center center">
+      <h2 class="title">Acceder</h2>
+      <h5>Use your Mulesoft account</h5>
+      <form [formGroup]="loginForm" fxLayout="column">
+        <mat-form-field appearance="outline">
+          <mat-label>Email or phone</mat-label>
+          <input matInput placeholder="" formControlName="username" autofocus="" />
+        </mat-form-field>
+
+        <div fxLayout="row" fxLayoutAlign="start">
+         <a mat-button color="primary" [routerLink]="[ '/' ]" class="link">Forgot password?</a>
+        </div>
+
+        <mat-form-field appearance="outline" fxLayout="column">
+          <mat-label>Enter your password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+
+      </form>
+
+      <div class="buttons" fxLayout="row" fxLayoutAlign="space-between">
+        <a mat-button color="primary" [routerLink]="[ '/' ]" class="link">Create account</a>
+        <button [disabled]="!loginForm.valid" mat-raised-button color="primary">
+          Aceptar
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</section>

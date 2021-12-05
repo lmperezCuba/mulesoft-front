@@ -1,0 +1,27 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+
+@mixin color($theme) {
+  $color-config: mat.get-color-config($theme);
+  $b: map.get($color-config, background);
+  $f: map.get($color-config, foreground);
+  $p: map.get($color-config, primary);
+
+  .ai-toggle-switcher {
+    background: mat.get-color-from-palette($p, 500);
+  }
+
+  mat-sidenav {
+    box-shadow: mat.get-color-from-palette($b, sidenav-shadow) !important;
+    .mat-list-item {
+      border-bottom-color: mat.get-color-from-palette($b, sidenav-line) !important;
+    }
+  }
+}
+
+@mixin theme($theme) {
+  $color-config: mat.get-color-config($theme);
+  @if $color-config != null {
+    @include color($theme);
+  }
+}

@@ -1,0 +1,28 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+
+@mixin color($theme) {
+  $color-config: mat.get-color-config($theme);
+  $primary: map.get($color-config, primary);
+  $f: map.get($color-config, foreground);
+
+  .mat-list-item {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    border-bottom: 1px solid mat.get-color-from-palette($f, divider); 
+    &.active {
+      color: mat.get-color-from-palette($primary, 500) !important;
+      background: none !important;
+      mat-icon {
+        color: mat.get-color-from-palette($primary, 500) !important;
+      }
+    }
+  }
+}
+
+@mixin theme($theme) {
+  $color-config: mat.get-color-config($theme);
+  @if $color-config != null {
+    @include color($theme);
+  }
+}
