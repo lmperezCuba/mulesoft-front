@@ -15,7 +15,7 @@ const MENUITEMS: INavItem[] = [
   {
     displayName: 'Products',
     iconName: 'production_quantity_limits',
-    route: 'products',
+    route: 'admin/products',
   },
 ];
 
