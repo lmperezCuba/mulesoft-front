@@ -1,15 +1,9 @@
 // CUSTOM COMPONENTS
-@use "../../administration/legos/header/header-theme" as header;
-@use "../components/snack-bar/snack-bar-theme" as snackbar;
-@use "../../@helpers/hierarchical-structure/component/hierarchical-structure-theme.component" as hierarchical-structure;
-@use "../../administration/legos/sidebar/menu-list-item/menu-list-item" as menu-list-item;
-@use "../../administration/administration-theme" as admin;
+@use "../../admin/sidebar/menu-list-item/menu-list-item" as menu-list-item;
+@use "../../admin/admin-theme.scss" as admin;
 @use "./global";
 
 @mixin all-custom-component-theme-colors($theme-or-color-config) {
-  @include header.theme($theme-or-color-config);
-  @include snackbar.theme($theme-or-color-config);
-  @include hierarchical-structure.theme($theme-or-color-config);
   @include menu-list-item.theme($theme-or-color-config);
   @include admin.theme($theme-or-color-config);
   @include global.theme($theme-or-color-config);

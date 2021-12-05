@@ -1,18 +1,19 @@
 @use "@angular/material" as mat;
 @use "./material-light-theme" as light-theme;
 @use "./material-dark-theme" as dark-theme;
+@use "./all-custom-theme-colors" as custom-colors;
 
 // @use "./all-custom-theme-colors" as custom-colors;
 @include mat.core();
 
 // Apply the dark theme by default
 @include mat.all-component-themes(light-theme.$light-theme);
-// @include custom-colors.all-custom-component-theme-colors(light-theme.$light-theme);
+@include custom-colors.all-custom-component-theme-colors(light-theme.$light-theme);
 // Apply the light theme only when the `.my-light-theme` CSS class is applied
 // to an ancestor element of the components (such as `body`).
 .dark-theme {
   @include mat.all-component-colors(dark-theme.$dark-theme);
-  // @include custom-colors.all-custom-component-theme-colors(dark-theme.$dark-theme);
+   @include custom-colors.all-custom-component-theme-colors(dark-theme.$dark-theme);
 }
 
 // CUSTOM STYLE
