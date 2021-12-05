@@ -12,12 +12,7 @@ export class HeaderComponent implements OnInit {
   @Input() theme: boolean | undefined;
   @Input() hasMenu = false;
   activeDrawer = true;
-  currentTheme = 'corporate';
-  themeClass = {
-    'ai-toggle-switcher': true,
-    'ai-toggle-switcher-light': this.currentTheme === 'corporate',
-    'ai-toggle-switcher-dark': this.currentTheme === 'dark',
-  };
+  currentTheme = 'light';
 
   constructor(
     private overlay: OverlayContainer
@@ -31,25 +26,21 @@ export class HeaderComponent implements OnInit {
    * Switch between themes light and dark.
    */
   changeTheme(): void {
+    console.log('d');
+    
     if (this.currentTheme === 'dark') {
-      localStorage.setItem('theme', 'corporate');
-      this.currentTheme = 'corporate';
+      localStorage.setItem('theme', 'light');
+      this.currentTheme = 'light';
     } else {
       this.currentTheme = 'dark';
       localStorage.setItem('theme', 'dark');
     }
-    // this.themeService.changeTheme(this.currentTheme)
-    this.themeClass = {
-      'ai-toggle-switcher': true,
-      'ai-toggle-switcher-light': this.currentTheme === 'dark',
-      'ai-toggle-switcher-dark': this.currentTheme === 'corporate',
-    };
     if (this.currentTheme === 'dark') {
       this.className = 'dark-theme';
-      this.overlay.getContainerElement().classList.add('dark-theme');
+      this.overlay.getContainerElement().parentElement?.classList.add('dark-theme');
     } else {
       this.className = '';
-      this.overlay.getContainerElement().classList.remove('dark-theme');
+      this.overlay.getContainerElement().parentElement?.classList.remove('dark-theme');
     }
   }
 

@@ -13,7 +13,7 @@ $light-focused: rgba(white, 0.12);
 
 $light-theme-background-palette: (
   status-bar:  mat.get-color-from-palette(mat.define-palette(mat.$grey-palette, 300)),
-  app-bar:    mat.get-color-from-palette(mat.define-palette(mat.$grey-palette, 100)),
+  app-bar:    #3f51b5,
   background: mat.get-color-from-palette(mat.define-palette(mat.$grey-palette, 50)),
   hover:      rgba(black, 0.04), // TODO(kara): check style with Material Design UX
   card:       white,

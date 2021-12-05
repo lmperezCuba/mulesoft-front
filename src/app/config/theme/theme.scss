@@ -13,7 +13,7 @@
 // to an ancestor element of the components (such as `body`).
 .dark-theme {
   @include mat.all-component-colors(dark-theme.$dark-theme);
-   @include custom-colors.all-custom-component-theme-colors(dark-theme.$dark-theme);
+  @include custom-colors.all-custom-component-theme-colors(dark-theme.$dark-theme);
 }
 
 // CUSTOM STYLE
