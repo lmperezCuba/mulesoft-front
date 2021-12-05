@@ -1,0 +1,18 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+
+@mixin color($theme) {
+  $color-config: mat.get-color-config($theme);
+  $b: map.get($color-config, background);
+
+  .form-container {
+    background-color: mat.get-color-from-palette($b, 'background') !important;
+  }
+}
+
+@mixin theme($theme) {
+  $color-config: mat.get-color-config($theme);
+  @if $color-config != null {
+    @include color($theme);
+  }
+}
