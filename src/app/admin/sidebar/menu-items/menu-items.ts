@@ -5,7 +5,7 @@ const MENUITEMS: INavItem[] = [
   {
     displayName: 'Users',
     iconName: 'people',
-    route: 'users',
+    route: 'admin/users',
   },
   {
     displayName: 'Roles',
