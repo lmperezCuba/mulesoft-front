@@ -35,10 +35,6 @@ mat-icon {
   width: 100% !important;
 }
 
-.rigth-align {
-  display: flex;
-  justify-content: flex-end !important;
-}
 
 h2.title {
   font-size: 1.125rem;
@@ -54,11 +50,6 @@ mat-error, .hint-error {
   font-size: small !important;
 }
 
-.bg-transparent,
-mat-stepper {
-  background-color: transparent !important;
-}
-
-.mat-horizontal-content-container {
-  padding: 0 0 24px 0 !important;
+mat-divider.separator {
+  padding-bottom: 1rem;
 }
