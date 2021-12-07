@@ -69,7 +69,7 @@
 </mat-card>
 
 <div class="buttons margin-top" fxLayout="row" fxLayoutAlign="end">
-  <button mat-raised-button color="primary">
+  <button mat-raised-button color="primary" [disabled]="!form.valid || submitted===true" (click)="create()">
     Create
   </button>
 </div>

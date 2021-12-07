@@ -1,5 +1,9 @@
+import { SecurityService } from './../../../config/services/security.service';
+import { Router } from '@angular/router';
+import { CreateService } from './create.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
+import { tap, first, catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-create',
@@ -8,6 +12,7 @@ import { FormGroup, FormControl, Validators, AbstractControl, ValidatorFn } from
 })
 export class CreateComponent implements OnInit {
   hide = true;
+  submitted = false;
   form: FormGroup = new FormGroup({
     username: new FormControl('', {
       updateOn: 'change',
@@ -21,12 +26,16 @@ export class CreateComponent implements OnInit {
       updateOn: 'change',
       validators: [Validators.required]
     }),
-    confirmPassword: new FormControl(null, [Validators.required]),
+    confirmPassword: new FormControl('', {
+      updateOn: 'change',
+      validators: [Validators.required]
+    }),
   },
     //{ validators: passwordMatchingValidatior }
   );
 
-  constructor() { }
+  constructor(private createService: CreateService, private router: Router,
+    private securityService: SecurityService) { }
 
   ngOnInit(): void {
     console.log('');
@@ -45,4 +54,28 @@ export class CreateComponent implements OnInit {
   };
   */
 
+  /**
+   * Create a new user
+   */
+  create() {
+    if (!this.form.valid) return;
+    this.submitted = true;
+    this.createService.create({
+      username: this.f['username'].value,
+      email: this.f['email'].value,
+      password: this.f['password'].value
+    }).pipe(first(),
+      tap(x => console.log(x)),
+      catchError(error => {
+        this.securityService.handleError(error);
+        return of();
+      }))
+      .subscribe(x => {
+        console.log('user created');
+        this.submitted = false;
+        this.router.navigate(['admin/users/list'])
+      });
+  }
+
+  
 }

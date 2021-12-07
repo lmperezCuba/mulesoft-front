@@ -26,7 +26,7 @@ import { CreateComponent } from './create.component';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
   ],
   providers: [CreateService]
 })
