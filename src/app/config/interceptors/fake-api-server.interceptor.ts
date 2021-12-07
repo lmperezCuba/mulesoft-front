@@ -34,11 +34,10 @@ export class FakeApiServerInterceptor implements HttpInterceptor {
       case 'http://localhost:3000/apiv1/users/create':
         data = this.fakeDBRepository.save(Classes.users, request.body);
         break;
-      case  'http://localhost:3000/apiv1/users':
-
-      break;
+      case 'http://localhost:3000/apiv1/users':
+        data = this.fakeDBRepository.findAll(Classes.users);
+        break;
     }
-    return of(new HttpResponse({ status: 200, body: '' }));
-    // return next.handle(request);
+    return of(new HttpResponse({ status: 200, body: data }));
   }
 }

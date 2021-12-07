@@ -1,3 +1,4 @@
+import { ListService } from './list.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private listService: ListService) { }
 
   ngOnInit(): void {
+    console.log('*');
+    
+    this.listService.list().subscribe(x => {
+      console.log(x);
+      console.log('**');
+      
+    })
   }
 
 }

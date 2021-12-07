@@ -6,8 +6,6 @@ import { debounceTime, delay, first, map, Observable, of } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class DbService {
 
-  users: User[] = []
-
   constructor() { }
 
   /**
@@ -22,7 +20,9 @@ export class DbService {
       case 'users':
         const { username, password } = data as unknown as User;
         const user: User = new User(username, password);
-        this.users.push(data as unknown as User);
+        const users: User[] = this.getItem('users');
+        users.push(data as unknown as User);
+        localStorage.setItem('users', JSON.stringify(users));
         return user;
     }
     throw Error('Some error has ocurred.');
@@ -35,8 +35,21 @@ export class DbService {
    */
   findAll(classType: Classes) {
     switch (classType) {
-      case 'users': return this.users;
+      case 'users':
+        const users: User[] = JSON.parse(localStorage.getItem('users') as string);
+        return users;
     }
     throw Error('Some error has ocurred.');
+  }
+
+  /**
+   * Save access to localstorage
+   * @param key ls key
+   */
+  private getItem(key: string) {
+    if (localStorage.getItem(key) === null) {
+      localStorage.setItem(key, JSON.stringify([]));
+    }
+    return JSON.parse(localStorage.getItem(key) as string)
   }
 }
