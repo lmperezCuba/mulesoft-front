@@ -8,15 +8,8 @@
   $b: map.get($color-config, background);
   $w: map.get($color-config, warn);
 
-  mat-icon {
-    color: mat.get-color-from-palette($f, icon) !important;
-    &:hover {
-      color: mat.get-color-from-palette($primary, 500) !important;
-      background: none !important;
-      mat-icon {
-        color: mat.get-color-from-palette($primary, 500) !important;
-      }
-    }
+  .mat-toolbar {
+    color: mat.get-color-from-palette($f, app-bar);
   }
 
   .mat-raised-button:not([color]) {

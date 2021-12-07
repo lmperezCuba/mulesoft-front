@@ -1,5 +1,6 @@
-import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { SecurityService } from '../../services/security.service';
 
 @Component({
   selector: 'app-header',
@@ -12,15 +13,12 @@ export class HeaderComponent implements OnInit {
   @Input() theme: boolean | undefined;
   @Input() hasMenu = false;
   activeDrawer = true;
-  currentTheme = 'corporate';
-  themeClass = {
-    'ai-toggle-switcher': true,
-    'ai-toggle-switcher-light': this.currentTheme === 'corporate',
-    'ai-toggle-switcher-dark': this.currentTheme === 'dark',
-  };
+  currentTheme = 'light';
 
   constructor(
-    private overlay: OverlayContainer
+    // private overlay: OverlayContainer,
+    private securityService: SecurityService,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit(): void {
@@ -32,24 +30,20 @@ export class HeaderComponent implements OnInit {
    */
   changeTheme(): void {
     if (this.currentTheme === 'dark') {
-      localStorage.setItem('theme', 'corporate');
-      this.currentTheme = 'corporate';
+      localStorage.setItem('theme', 'light');
+      this.currentTheme = 'light';
     } else {
       this.currentTheme = 'dark';
       localStorage.setItem('theme', 'dark');
     }
-    // this.themeService.changeTheme(this.currentTheme)
-    this.themeClass = {
-      'ai-toggle-switcher': true,
-      'ai-toggle-switcher-light': this.currentTheme === 'dark',
-      'ai-toggle-switcher-dark': this.currentTheme === 'corporate',
-    };
     if (this.currentTheme === 'dark') {
       this.className = 'dark-theme';
-      this.overlay.getContainerElement().classList.add('dark-theme');
+      this.renderer.addClass(document.body, 'dark-theme');
+      // this.overlay.getContainerElement().parentElement?.parentElement?.classList.add('dark-theme');
     } else {
       this.className = '';
-      this.overlay.getContainerElement().classList.remove('dark-theme');
+      this.renderer.removeClass(document.body, 'dark-theme');
+      // this.overlay.getContainerElement().parentElement?.parentElement?.classList.remove('dark-theme');
     }
   }
 
@@ -68,5 +62,12 @@ export class HeaderComponent implements OnInit {
    */
   clickDrawer() {
     this.drawer.emit(this.activeDrawer = !this.activeDrawer);
+  }
+
+  /**
+   * Logout front the app
+   */
+  logout(){
+    this.securityService.logout();
   }
 }

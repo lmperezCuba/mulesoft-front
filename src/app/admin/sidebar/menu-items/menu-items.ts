@@ -5,17 +5,17 @@ const MENUITEMS: INavItem[] = [
   {
     displayName: 'Users',
     iconName: 'people',
-    route: 'users',
+    route: 'admin/users',
   },
   {
     displayName: 'Roles',
     iconName: 'admin_panel_settings',
-    route: 'roles',
+    route: 'admin/roles',
   },
   {
     displayName: 'Products',
     iconName: 'production_quantity_limits',
-    route: 'products',
+    route: 'admin/products',
   },
 ];
 
