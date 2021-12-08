@@ -11,7 +11,7 @@ export class ListService {
   constructor(private httpClient: HttpClient) { }
 
   /**
-   * Create a new user
+   * FindAll users
    * @param input 
    */
   findAllPagination(
@@ -29,9 +29,6 @@ export class ListService {
     return this.httpClient.get<IPaginateOutDTO<IUser>>("http://localhost:3000/apiv1/users").pipe(
       first(),
       map((x: IPaginateOutDTO<IUser>) => {
-        console.log('---');
-        console.log(x);
-        
         return {
           count: x.count,
           items: x.items

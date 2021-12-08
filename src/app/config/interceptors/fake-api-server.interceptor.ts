@@ -40,6 +40,10 @@ export class FakeApiServerInterceptor implements HttpInterceptor {
       case 'http://localhost:3000/apiv1/products/create':
         data = this.fakeDBRepository.save(Classes.products, request.body);
         break;
+      case 'http://localhost:3000/apiv1/products':
+        const products = this.fakeDBRepository.findAll(Classes.products);
+        data = { count: products.length, items: products }
+        break;
     }
     return of(new HttpResponse({ status: 200, body: data }));
   }
