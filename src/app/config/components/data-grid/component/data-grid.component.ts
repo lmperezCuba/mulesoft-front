@@ -189,7 +189,7 @@ export class DataGridComponent
   }
 
   reloadData(): void {
-    this.reloadSubject.next();
+    this.reloadSubject.next(true);
   }
 
   dataValidFilter(dataColumnFilter: IColumnFilterData): boolean {
@@ -416,6 +416,9 @@ export class DataGridComponent
             // Only refresh the result length if there is new data. In case of rate
             // limit errors, we do not want to reset the paginator to zero, as that
             // would prevent users from re-triggering requests.
+            /**
+             * For GraphQL
+             */
             this.resultsLength = (data as IPaginateOutDTO<unknown>).count;
             return (data as IPaginateOutDTO<unknown>).items;
           })

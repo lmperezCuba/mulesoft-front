@@ -1,7 +1,6 @@
 import { User } from './dataTypes/user.class';
 import { Injectable } from '@angular/core';
 import { Classes } from './classes.enum';
-import { debounceTime, delay, first, map, Observable, of } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DbService {
@@ -18,10 +17,10 @@ export class DbService {
     console.log('in');
     switch (classType) {
       case 'users':
-        const { username, password } = data as unknown as User;
-        const user: User = new User(username, password);
+        const { username, password, email } = data as unknown as User;
+        const user: User = new User(username, password, email);
         const users: User[] = this.getItem('users');
-        users.push(data as unknown as User);
+        users.push(user);
         localStorage.setItem('users', JSON.stringify(users));
         return user;
     }

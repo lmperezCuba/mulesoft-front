@@ -1,5 +1,6 @@
 import { ListService } from './list.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DataGridComponent } from '../../../config/components/data-grid/component/data-grid.component';
 
 @Component({
   selector: 'app-list',
@@ -7,13 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
+  @ViewChild(DataGridComponent) dataGrid?: DataGridComponent;
 
-  constructor(private listService: ListService) { }
+  constructor(public listService: ListService) { }
 
   ngOnInit(): void {
     console.log('*');
     
-    this.listService.list().subscribe(x => {
+    this.listService.findAllPagination().subscribe(x => {
       console.log(x);
       console.log('**');
       
