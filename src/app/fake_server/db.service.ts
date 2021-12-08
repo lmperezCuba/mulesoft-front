@@ -1,6 +1,7 @@
 import { User } from './dataTypes/user.class';
 import { Injectable } from '@angular/core';
 import { Classes } from './classes.enum';
+import { Product } from './dataTypes/product.class';
 
 @Injectable({ providedIn: 'root' })
 export class DbService {
@@ -23,6 +24,13 @@ export class DbService {
         users.push(user);
         localStorage.setItem('users', JSON.stringify(users));
         return user;
+      case 'products':
+        const { name, price } = data as unknown as Product;
+        const product: Product = new Product(name, price);
+        const products: Product[] = this.getItem('products');
+        products.push(product);
+        localStorage.setItem('products', JSON.stringify(products));
+        return product;
     }
     throw Error('Some error has ocurred.');
   }
@@ -37,6 +45,9 @@ export class DbService {
       case 'users':
         const users: User[] = JSON.parse(localStorage.getItem('users') as string);
         return users;
+      case 'products':
+        const products: Product[] = JSON.parse(localStorage.getItem('products') as string);
+        return products;
     }
     throw Error('Some error has ocurred.');
   }
