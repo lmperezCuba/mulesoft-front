@@ -2,7 +2,7 @@ import { SecurityService } from './../../../config/services/security.service';
 import { Router } from '@angular/router';
 import { CreateService } from './create.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { tap, first, catchError, of } from 'rxjs';
 
 @Component({
@@ -20,7 +20,7 @@ export class CreateComponent implements OnInit {
     }),
     email: new FormControl('', {
       updateOn: 'change',
-      validators: [Validators.required]
+      validators: [Validators.required, Validators.email]
     }),
     password: new FormControl('', {
       updateOn: 'change',
@@ -28,10 +28,9 @@ export class CreateComponent implements OnInit {
     }),
     confirmPassword: new FormControl('', {
       updateOn: 'change',
-      validators: [Validators.required]
+      validators: [Validators.required, this.matchOtherValidator('password')]
     }),
   },
-    //{ validators: passwordMatchingValidatior }
   );
 
   constructor(private createService: CreateService, private router: Router,
@@ -45,14 +44,46 @@ export class CreateComponent implements OnInit {
   get f(): { [key: string]: AbstractControl } {
     return this.form.controls;
   }
-  /*
-    passwordMatchingValidatior(): ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-    const password = control.get('password');
-    const confirmPassword = control.get('confirmPassword');
-  
-    return password?.value === confirmPassword?.value ? null : { notmatched: true };
-  };
-  */
+
+matchOtherValidator(otherControlName: string) {
+
+  let thisControl: FormControl;
+  let otherControl: FormControl;
+
+  return function matchOtherValidate(control: FormControl) {
+
+    if (!control.parent) {
+      return null;
+    }
+
+    // Initializing the validator.
+    if (!thisControl) {
+      thisControl = control;
+      otherControl = control.parent.get(otherControlName) as FormControl;
+      if (!otherControl) {
+        throw new Error('matchOtherValidator(): other control is not found in parent group');
+      }
+      otherControl.valueChanges.subscribe(() => {
+        thisControl.updateValueAndValidity();
+      });
+    }
+
+    if (!otherControl) {
+      return null;
+    }
+
+    if (otherControl.value !== thisControl.value) {
+      return {
+        matchOther: true
+      };
+    }
+
+    return null;
+
+  }
+}
+
+
 
   /**
    * Create a new user
@@ -77,5 +108,5 @@ export class CreateComponent implements OnInit {
       });
   }
 
-  
+
 }

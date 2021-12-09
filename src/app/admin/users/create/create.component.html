@@ -16,10 +16,10 @@
         <mat-label>Username:</mat-label>
         <input matInput formControlName="username" maxlength="30">
         <mat-error *ngIf="f['username'].hasError('required')">
-          Campo requerido.
+          Username required.
         </mat-error>
         <mat-error *ngIf="f['username'].hasError('fieldExist')">
-          El elemento ya existe.
+          The username already exist.
         </mat-error>
       </mat-form-field>
 
@@ -27,10 +27,13 @@
         <mat-label>Email:</mat-label>
         <input matInput formControlName="email" maxlength="30">
         <mat-error *ngIf="f['email'].hasError('required')">
-          Campo requerido.
+          Email required.
         </mat-error>
         <mat-error *ngIf="f['email'].hasError('fieldExist')">
-          El elemento ya existe.
+          The email already exist.
+        </mat-error>
+        <mat-error *ngIf="f['email'].hasError('email')">
+          The email format is incorrect.
         </mat-error>
       </mat-form-field>
 
@@ -42,10 +45,7 @@
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-error *ngIf="f['password'].hasError('required')">
-          Campo requerido.
-        </mat-error>
-        <mat-error *ngIf="f['password'].hasError('fieldExist')">
-          El elemento ya existe.
+          Password required.
         </mat-error>
       </mat-form-field>
 
@@ -57,10 +57,10 @@
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-error *ngIf="f['confirmPassword'].hasError('required')">
-          Campo requerido.
+          Confirm required.
         </mat-error>
-        <mat-error *ngIf="f['confirmPassword'].hasError('fieldExist')">
-          El elemento ya existe.
+        <mat-error *ngIf="f['confirmPassword'].hasError('matchOther')">
+          The passwords does not match.
         </mat-error>
       </mat-form-field>
 
