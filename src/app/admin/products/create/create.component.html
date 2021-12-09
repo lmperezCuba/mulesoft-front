@@ -12,7 +12,7 @@
     <form [formGroup]="form" fxLayout="row wrap" fxLayout.xs="column wrap" fxLayoutAlign="start start"
       fxLayoutGap="1rem">
 
-      <mat-form-field appearance="outline" fxLayout="column" fxLayout.xs="row" fxFlex="1 1 calc(50% - 1rem)">
+      <mat-form-field appearance="outline" floatLabel="always" fxLayout="column" fxLayout.xs="row" fxFlex="1 1 calc(50% - 1rem)">
         <mat-label>Name:</mat-label>
         <input matInput formControlName="name" maxlength="30">
         <mat-error *ngIf="f['name'].hasError('required')">
@@ -25,7 +25,8 @@
 
       <mat-form-field appearance="outline" fxLayout.xs="row" fxFlex="1 1 calc(50% - 1rem)">
         <mat-label>Price:</mat-label>
-        <input matInput formControlName="price" maxlength="30">
+        <input matInput type="number" class="example-right-align" formControlName="price" placeholder="0">
+        <span matPrefix>$&nbsp;</span>
         <mat-error *ngIf="f['price'].hasError('required')">
           Campo requerido.
         </mat-error>

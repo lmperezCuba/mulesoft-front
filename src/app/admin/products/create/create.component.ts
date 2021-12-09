@@ -19,7 +19,7 @@ export class CreateComponent implements OnInit {
     }),
     price: new FormControl('', {
       updateOn: 'change',
-      validators: [Validators.required]
+      validators: [Validators.required, Validators.pattern('([0-9]*)(.[0-9]+)?')]
     }),
   },
     //{ validators: passwordMatchingValidatior }
