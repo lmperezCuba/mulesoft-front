@@ -1,3 +1,4 @@
+import { Role } from './dataTypes/role.class';
 import { User } from './dataTypes/user.class';
 import { Injectable } from '@angular/core';
 import { Classes } from './classes.enum';
@@ -31,6 +32,13 @@ export class DbService {
         products.push(product);
         localStorage.setItem('products', JSON.stringify(products));
         return product;
+      case 'roles':
+        const { rolename } = data as unknown as Role;
+        const role: Role = new Role(rolename);
+        const roles: Role[] = this.getItem('roles');
+        roles.push(role);
+        localStorage.setItem('roles', JSON.stringify(roles));
+        return role;
     }
     throw Error('Some error has ocurred.');
   }
@@ -43,11 +51,18 @@ export class DbService {
   findAll(classType: Classes) {
     switch (classType) {
       case 'users':
-        const users: User[] = JSON.parse(localStorage.getItem('users') as string);
+        const users: User[] = this.getItem('users');
         return users;
       case 'products':
-        const products: Product[] = JSON.parse(localStorage.getItem('products') as string);
+        const products: Product[] = this.getItem('products');
         return products;
+      case 'roles':
+        console.log('pass');
+        
+        const roles: Role[] = this.getItem('roles');
+        console.log(roles);
+        
+        return roles;
     }
     throw Error('Some error has ocurred.');
   }
@@ -57,6 +72,10 @@ export class DbService {
    * @param key ls key
    */
   private getItem(key: string) {
+    console.log(key);
+    console.log('in');
+    console.log(localStorage.getItem(key));
+    
     if (localStorage.getItem(key) === null) {
       localStorage.setItem(key, JSON.stringify([]));
     }

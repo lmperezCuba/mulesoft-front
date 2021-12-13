@@ -1,4 +1,5 @@
 export enum Classes {
   users = 'users',
-  products = 'products'
+  products = 'products',
+  roles = 'roles'
 }
