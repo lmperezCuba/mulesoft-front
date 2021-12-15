@@ -2,15 +2,34 @@ import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class SecurityService {
+  private isLogged = false;
 
   constructor(private router: Router) { }
 
+  /**
+   * Check if the user is logged in the system
+   */
+  isLoggedIn() {
+    return this.isLogged;
+  }
+
+  /**
+   * LogIn the system
+   */
+  logIn(username: string, password: string):  boolean {
+    if (username === 'admin' && password === '123') {
+      this.isLogged = true;
+      this.router.navigate(['admin'])
+      return true;
+    }
+    return false;
+  }
+
   logout() {
     // not implemente yet
+    this.isLogged = false;
     this.router.navigate(['login']);
   }
 
