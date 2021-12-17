@@ -48,10 +48,17 @@ export class FakeApiServerInterceptor implements HttpInterceptor {
         data = this.fakeDBRepository.save(Classes.roles, request.body);
         break;
       case 'http://localhost:3000/apiv1/roles':
-        console.log('roles');
-        
         const roles = this.fakeDBRepository.findAll(Classes.roles);
         data = { count: roles.length, items: roles }
+        break;
+      case 'http://localhost:3000/apiv1/login':
+        console.log('login');
+        console.log(request.body);
+        const { username, password } = request.body as { username: string, password: string };
+        // Simulated seed
+        if (username === 'admin' && password === '123') {
+          data = { claims: ['ADMIN'] }
+        }
         break;
     }
     return of(new HttpResponse({ status: 200, body: data }));

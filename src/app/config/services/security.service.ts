@@ -1,18 +1,21 @@
+import { NgxPermissionsService } from 'ngx-permissions';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class SecurityService {
-  private isLogged = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private permissionsService: NgxPermissionsService) { }
 
   /**
    * Check if the user is logged in the system
    */
   isLoggedIn() {
-    return this.isLogged;
+    console.log(Object.keys(this.permissionsService.getPermissions()).length);
+    
+   // const permissions: string[] = this.permissionsService.getPermissions()['permissions']
+    return Object.keys(this.permissionsService.getPermissions()).length;
   }
 
   /**
@@ -20,7 +23,7 @@ export class SecurityService {
    */
   logIn(username: string, password: string):  boolean {
     if (username === 'admin' && password === '123') {
-      this.isLogged = true;
+     // this.isLogged = true;
       this.router.navigate(['admin'])
       return true;
     }
@@ -29,7 +32,7 @@ export class SecurityService {
 
   logout() {
     // not implemente yet
-    this.isLogged = false;
+ //   this.isLogged = false;
     this.router.navigate(['login']);
   }
 

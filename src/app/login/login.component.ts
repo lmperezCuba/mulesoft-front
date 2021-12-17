@@ -1,6 +1,9 @@
+import { Router } from '@angular/router';
+import { LoginService } from './login.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { SecurityService } from '../config/services/security.service';
+import { tap } from 'rxjs';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +15,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   incorrectCredentials = false;
 
-  constructor(private securityService: SecurityService) {
+  constructor(private loginService: LoginService, private router: Router,
+    private permissionsService: NgxPermissionsService) {
     this.loginForm = new FormGroup({
       username: new FormControl('', {
         updateOn: 'change',
@@ -33,10 +37,15 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-  logIn(){
-    const logged = this.securityService.logIn(this.f['username'].value, this.f['password'].value);
-    if(logged === false){
-      this.incorrectCredentials = true;
-    }
+  logIn() {
+    this.loginService.login(this.f['username'].value, this.f['password'].value)
+      .subscribe(res => {
+        if (res) {
+          this.permissionsService.loadPermissions(res['claims']);
+          this.router.navigate(['/'])
+        } else {
+          this.incorrectCredentials = true;
+        }
+      })
   }
 }
