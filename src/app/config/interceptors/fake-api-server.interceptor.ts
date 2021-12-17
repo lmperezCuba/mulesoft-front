@@ -58,6 +58,8 @@ export class FakeApiServerInterceptor implements HttpInterceptor {
         // Simulated seed
         if (username === 'admin' && password === '123') {
           data = { claims: ['ADMIN'] }
+        } else if (username === 'user' && password === '123') {
+          data = { claims: ['USER'] }
         }
         break;
     }

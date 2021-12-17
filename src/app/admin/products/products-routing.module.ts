@@ -7,11 +7,17 @@ const routes: Routes = [
     path: 'list',
     loadChildren: () => import('./list/list.module').then(m => m.ListModule),
     canActivate: [AuthGuard],
+    data: {
+      expectedRoles: ['ADMIN']
+    }
   },
   {
     path: 'create',
     loadChildren: () => import('./create/create.module').then(m => m.CreateModule),
     canActivate: [AuthGuard],
+    data: {
+      expectedRoles: ['ADMIN']
+    }
   },
   {
     path: '',

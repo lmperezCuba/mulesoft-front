@@ -16,7 +16,6 @@ export class DbService {
    * @returns the saved data
    */
   save<T>(classType: Classes, data: T): any {
-    console.log('in');
     switch (classType) {
       case 'users':
         const { username, password, email } = data as unknown as User;
@@ -71,11 +70,7 @@ export class DbService {
    * Save access to localstorage
    * @param key ls key
    */
-  private getItem(key: string) {
-    console.log(key);
-    console.log('in');
-    console.log(localStorage.getItem(key));
-    
+  private getItem(key: string) {    
     if (localStorage.getItem(key) === null) {
       localStorage.setItem(key, JSON.stringify([]));
     }

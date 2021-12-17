@@ -11,8 +11,11 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    console.log("AlwaysAuthGuard");
-    if (!this.securityService.isLoggedIn()) {
+    // this will be passed from the route config on the data property
+    const expectedRoles: string[] = route.data['expectedRoles'];
+    const decodeClaims = this.securityService.fakeDEcodeJWT(localStorage.getItem('jwt'));
+    if (!this.securityService.isLoggedIn() || !(decodeClaims['claims'] as string[])
+      .some((value) => { return expectedRoles.includes(value) })) {
       return this.router.parseUrl('/login');
     } else {
       return true;

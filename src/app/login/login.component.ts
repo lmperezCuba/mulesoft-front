@@ -2,7 +2,6 @@ import { Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { tap } from 'rxjs';
 import { NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
@@ -41,8 +40,12 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.f['username'].value, this.f['password'].value)
       .subscribe(res => {
         if (res) {
+          localStorage.setItem('jwt', JSON.stringify(res));
           this.permissionsService.loadPermissions(res['claims']);
-          this.router.navigate(['/'])
+          this.permissionsService.hasPermission('ADMIN').then(x => {
+            if (x === true) { this.router.navigate(['/admin'])}
+            else this.router.navigate(['/'])
+          })
         } else {
           this.incorrectCredentials = true;
         }

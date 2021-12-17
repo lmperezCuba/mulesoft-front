@@ -12,18 +12,16 @@ export class SecurityService {
    * Check if the user is logged in the system
    */
   isLoggedIn() {
-    console.log(Object.keys(this.permissionsService.getPermissions()).length);
-    
-   // const permissions: string[] = this.permissionsService.getPermissions()['permissions']
+    // const permissions: string[] = this.permissionsService.getPermissions()['permissions']
     return Object.keys(this.permissionsService.getPermissions()).length;
   }
 
   /**
    * LogIn the system
    */
-  logIn(username: string, password: string):  boolean {
+  logIn(username: string, password: string): boolean {
     if (username === 'admin' && password === '123') {
-     // this.isLogged = true;
+      // this.isLogged = true;
       this.router.navigate(['admin'])
       return true;
     }
@@ -32,7 +30,7 @@ export class SecurityService {
 
   logout() {
     // not implemente yet
- //   this.isLogged = false;
+    //   this.isLogged = false;
     this.router.navigate(['login']);
   }
 
@@ -49,5 +47,14 @@ export class SecurityService {
     }
     // return an observable with a user-facing error message
     throw Error("Something bad happened; please try again later.");
+  }
+
+  /**
+   * Extract the user data and claims
+   * @param fakeJWT 
+   */
+  fakeDEcodeJWT(fakeJWT: string | null = '') {
+    if(fakeJWT === null) return {};
+    return JSON.parse(fakeJWT);
   }
 }
