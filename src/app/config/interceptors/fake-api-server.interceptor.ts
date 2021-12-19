@@ -17,17 +17,7 @@ export class FakeApiServerInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     console.log('Handle fake api server');
-    console.log('Fake JWT verify');
 
-    // const accessToken = this.localstorageService.getKey('accessToken')
-    // const isLoggedIn = accessToken !== null
-    //if (isLoggedIn) {
-    /*  request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer test`, // Bearer is included
-        },
-      })*/
-    //}
     let data = undefined;
     switch (request.url) {
       case 'http://localhost:3000/apiv1/users/create':

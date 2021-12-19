@@ -1,3 +1,4 @@
+import { JwtInterceptor } from './config/interceptors/jwt.interceptor';
 import { FakeApiServerInterceptor } from './config/interceptors/fake-api-server.interceptor';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,8 +18,11 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     BrowserAnimationsModule,
     HttpClientModule,
     NgxPermissionsModule.forRoot()
+  ], 
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: FakeApiServerInterceptor, multi: true }
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: FakeApiServerInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
