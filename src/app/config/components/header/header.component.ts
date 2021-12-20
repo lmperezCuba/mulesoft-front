@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
   @HostBinding('class') className = '';
   @Input() theme: boolean | undefined;
   @Input() hasMenu = false;
+  @Input() title = 'Mulesoft Dashboard';
   activeDrawer = true;
   currentTheme = 'light';
 

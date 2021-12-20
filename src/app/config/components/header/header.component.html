@@ -2,11 +2,16 @@
   <button *ngIf="hasMenu" aria-label="Toggle sidenav" mat-icon-button (click)="clickDrawer()">
     <mat-icon class="menu-icon">menu</mat-icon>
   </button>
-  <span fxHide.lt-sm>Mulesoft Dashboard</span>
+  <span fxHide.lt-sm>{{title}}</span>
   <span class="toolbar-spacer"></span>
-  <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon">
+  <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon"
+  *ngxPermissionsOnly="['ADMIN']">
     <mat-icon routerLink="['/dashboard']">home</mat-icon>
   </button>
+    <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon"
+      *ngxPermissionsOnly="['USER']">
+      <mat-icon routerLink="['/']">shopping_cart</mat-icon>
+    </button>
   <button mat-icon-button class="control-item favorite-icon" aria-label="icon-button with heart icon">
     <mat-icon>notifications</mat-icon>
   </button>
