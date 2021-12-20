@@ -8,6 +8,10 @@
   $b: map.get($color-config, background);
   $w: map.get($color-config, warn);
 
+  .page-wrapper {
+    background-color: mat.get-color-from-palette($b, background) !important;
+  }
+
   .mat-toolbar {
     color: mat.get-color-from-palette($f, app-bar);
   }
