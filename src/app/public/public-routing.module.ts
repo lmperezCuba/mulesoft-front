@@ -5,7 +5,18 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    component: PublicComponent
+    component: PublicComponent,
+    children: [
+      {
+        path: 'shop',
+        loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule)
+      },
+      {
+        path: '',
+        redirectTo: 'shop',
+        pathMatch: 'full'
+      }
+    ]
   }
 ];
 

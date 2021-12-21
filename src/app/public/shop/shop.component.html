@@ -1,1 +1,27 @@
-<p>shop works!</p>
+<ng-container *ngIf="products$ | async as products">
+
+  <div *ngIf="products.count === 0">
+    Sorry, there are no products.
+  </div>
+
+  <section class="products-catalog" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="1rem">
+    <mat-card *ngFor="let product of products.items; index as i" fxFlex="0 1 calc(20% - 1rem)" fxLayout="column">
+      <mat-card-header>
+        <img mat-card-avatar src="assets/images/headphone-circle.jpg" alt="Headphone">
+        <mat-card-title>{{ product.name }}</mat-card-title>
+        <mat-card-subtitle>{{ product.id }}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="assets/images/headphone-brand-product.jpg" alt="Headphone">
+      <mat-card-content>
+        {{ product.name }} Description
+      </mat-card-content>
+      <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="price">$ {{product.price}}</div>
+        <div class="actions" fxLayoutAlign="space-around center" fxLayoutGap="0.5rem">
+          <mat-icon aria-label="favorite border" matTooltip="Agregar a favoritos">favorite_border</mat-icon>
+          <mat-icon aria-label="add shoping cart" matTooltip="Agregar al carrito">add_shopping_cart</mat-icon>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </section>
+</ng-container>
