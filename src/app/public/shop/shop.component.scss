@@ -6,10 +6,13 @@
   mat-card {
     margin-bottom: 1rem;
     .actions {
+      .price {
+        font-weight: 500 !important;
+      }
       mat-icon {
+        font-weight: 500;
         cursor: pointer;
       }
     }
   }
 }
-

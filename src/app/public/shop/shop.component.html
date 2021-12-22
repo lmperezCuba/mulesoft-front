@@ -19,7 +19,8 @@
         <div class="price">$ {{product.price}}</div>
         <div class="actions" fxLayoutAlign="space-around center" fxLayoutGap="0.5rem">
           <mat-icon aria-label="favorite border" matTooltip="Agregar a favoritos">favorite_border</mat-icon>
-          <mat-icon aria-label="add shoping cart" matTooltip="Agregar al carrito">add_shopping_cart</mat-icon>
+          <mat-icon aria-label="add shoping cart" matTooltip="Agregar al carrito"
+          (click)="onAddItem2Cart(product)">add_shopping_cart</mat-icon>
         </div>
       </mat-card-actions>
     </mat-card>

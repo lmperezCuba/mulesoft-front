@@ -17,7 +17,7 @@ import { ShopComponent } from './shop.component';
     MatCardModule,
     FlexLayoutModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
   ]
 })
 export class ShopModule { }
