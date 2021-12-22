@@ -8,9 +8,10 @@ import {
   ContentChild,
   ContentChildren,
   QueryList,
+  AfterContentChecked,
 } from '@angular/core';
-import { merge, Observable, of, of as observableOf, Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { merge, Observable, of, Subject, first } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
@@ -52,7 +53,7 @@ export class MatPaginatorDataTableComponent {
   template: ` <ng-content></ng-content>`,
   styleUrls: ['./data-grid.component.scss'],
 })
-export class MatErrorDataTableComponent {}
+export class MatErrorDataTableComponent { }
 
 @Component({
   selector: 'app-mat-option-table',
@@ -83,7 +84,7 @@ export class MatColumnTableComponent {
 
   @ContentChild(MatCellDef) cellDef?: MatCellDef;
 
-  constructor(public matColumnDef: MatColumnDef) {}
+  constructor(public matColumnDef: MatColumnDef) { }
 }
 
 const defaultFindAllPagination = (
@@ -101,8 +102,7 @@ const defaultFindAllPagination = (
   styleUrls: ['./data-grid.component.scss'],
 })
 export class DataGridComponent
-  implements AfterViewInit, AfterContentInit, OnDestroy
-{
+  implements AfterContentInit, AfterContentChecked, OnDestroy {
   @Input() verticalLine = false;
   @Input() serviceData: IServeData = {
     findAllPagination: defaultFindAllPagination,
@@ -153,6 +153,9 @@ export class DataGridComponent
     this.dataSource = new MatTableDataSource<unknown>([]);
     this.reloadSubject = new Subject<unknown>();
   }
+  ngAfterContentChecked(): void {
+    this.subscriptionServicesServer();
+  }
 
   ngAfterContentInit(): void {
     this.buildColumns();
@@ -160,9 +163,9 @@ export class DataGridComponent
     this.initContentPaginator();
   }
 
-  ngAfterViewInit(): void {
-    this.subscriptionServicesServer();
-  }
+  /*ngAfterViewInit(): void {
+  
+  }*/
 
   ngOnDestroy(): void {
     this.reloadSubject.unsubscribe();
@@ -394,6 +397,7 @@ export class DataGridComponent
       )
         .pipe(
           startWith({}),
+          first(),
           switchMap(() => {
             this.isLoadingResults = true;
             return this.serviceData
@@ -403,7 +407,9 @@ export class DataGridComponent
                 this.sortFilter,
                 this.decorationFilterData()
               )
-              .pipe(catchError(() => observableOf(null)));
+              .pipe(catchError(() => of(null)),
+                distinctUntilChanged(), tap(() => {console.log('pass1');
+                }));
           }),
           map((data: unknown) => {
             // Flip flag to show that loading has finished.

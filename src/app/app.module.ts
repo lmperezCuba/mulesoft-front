@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { StoreModule } from '@ngrx/store';
+import { cartItemsReducer } from './state-shopping-cart/reducers/cart.reducer';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    NgxPermissionsModule.forRoot()
+    NgxPermissionsModule.forRoot(),
+    StoreModule.forRoot({ cartItems: cartItemsReducer})
   ], 
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
