@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -16,7 +17,7 @@ export class CartComponent implements OnInit, OnDestroy {
   // Suscriptions
   productsSuscription: Subscription | undefined;
 
-  constructor(private store: Store<{ cartItems: ICartItem[] }>,) { }
+  constructor(private store: Store<{ cartItems: ICartItem[] }>, private router: Router) { }
 
   ngOnInit(): void {
     this.cartItems$.subscribe(x => {
@@ -38,4 +39,10 @@ export class CartComponent implements OnInit, OnDestroy {
     this.store.dispatch(removeItemFromCart({ uuid: productId }));
   }
 
+  /**
+   * Redirect to checkout page
+   */
+  checkout() {
+    this.router.navigate(['public', 'checkout'])
+  }
 }
