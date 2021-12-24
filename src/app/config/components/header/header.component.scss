@@ -33,6 +33,9 @@ app-header mat-icon {
     width: 100%;
     text-align: center;
   }
+  .removeFromCart {
+    cursor: pointer;
+  }
 }
 
 .mat-list-item-content {

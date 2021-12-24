@@ -4,6 +4,8 @@ import { Component, EventEmitter, HostBinding, Input, OnInit, Output, Renderer2,
 import { SecurityService } from '../../services/security.service';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { IProduct } from '../../../admin/products/list/interfaces/product.interface';
+import { removeItemFromCart } from 'src/app/state-shopping-cart/cart.actions';
 
 @Component({
   selector: 'app-header',
@@ -89,6 +91,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
    */
   logout() {
     this.securityService.logout();
+  }
+
+  /**
+   * Add Product to cart
+   * @param product details
+   */
+  onRemoveItemFromCart(productId: string) {
+    this.store.dispatch(removeItemFromCart({ uuid: productId }));
   }
 
 }

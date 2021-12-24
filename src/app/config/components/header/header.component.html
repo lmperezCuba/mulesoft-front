@@ -54,7 +54,8 @@
             <div fxLayout="row"> <span class="price">${{item.price}}</span> </div>
           </div>
           <div fxLayout="column">
-            <mat-icon aria-label="remove from shopping cart" matTooltip="Remove from cart">
+            <mat-icon aria-label="remove from shopping cart" class="removeFromCart" matTooltip="Remove from cart"
+            (click)="onRemoveItemFromCart(item.uuid);$event.stopPropagation();">
               remove_shopping_cart</mat-icon>
           </div>
         </div>
