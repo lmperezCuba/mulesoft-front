@@ -1,11 +1,9 @@
+import { Router } from '@angular/router';
 import { ICartItem } from './../../../state-shopping-cart/interfaces/cart-item.interface';
-
 import { Component, EventEmitter, HostBinding, Input, OnInit, Output, Renderer2, OnDestroy } from '@angular/core';
 import { SecurityService } from '../../services/security.service';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { IProduct } from '../../../admin/products/list/interfaces/product.interface';
-import { removeItemFromCart } from 'src/app/state-shopping-cart/cart.actions';
 
 @Component({
   selector: 'app-header',
@@ -27,7 +25,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<{ cartItems: ICartItem[] }>,
     private securityService: SecurityService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -87,4 +86,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.securityService.logout();
   }
 
+  goStorefront() {
+    this.router.navigate(['/']);
+  }
 }

@@ -9,6 +9,10 @@
     <mat-icon routerLink="['/dashboard']">home</mat-icon>
   </button>
   <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon"
+    *ngxPermissionsOnly="['USER']">
+    <mat-icon (click)="goStorefront()">storefront</mat-icon>
+  </button>
+  <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon"
     *ngxPermissionsOnly="['USER']" [matMenuTriggerFor]="menu">
     <mat-icon routerLink="['/']" [matBadge]="elementsOnCard" [matBadgeHidden]="elementsOnCard===0"
       matBadgeColor="accent">shopping_cart</mat-icon>
