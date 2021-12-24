@@ -12,6 +12,10 @@ const routes: Routes = [
         loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule)
       },
       {
+        path: 'checkout',
+        loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule)
+      },
+      {
         path: '',
         redirectTo: 'shop',
         pathMatch: 'full'
