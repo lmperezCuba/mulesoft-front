@@ -9,10 +9,12 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatBadgeModule } from '@angular/material/badge';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    CartComponent
   ],
   imports: [
     CommonModule,

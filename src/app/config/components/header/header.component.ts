@@ -22,9 +22,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   activeDrawer = true;
   currentTheme = 'light';
   elementsOnCard = 0;
-  elementsCart: ICartItem[] = [];
-  totalCost: number = 0;
-  // Suscriptions
   productsSuscription: Subscription | undefined;
 
   constructor(
@@ -36,10 +33,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadTheme();
     this.cartItems$.subscribe(x => {
-      this.elementsCart = x;
       this.elementsOnCard = x.length;
-      this.totalCost = 0;
-      this.elementsCart.forEach(x => this.totalCost += +x.price);
     })
   }
 
@@ -91,14 +85,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
    */
   logout() {
     this.securityService.logout();
-  }
-
-  /**
-   * Add Product to cart
-   * @param product details
-   */
-  onRemoveItemFromCart(productId: string) {
-    this.store.dispatch(removeItemFromCart({ uuid: productId }));
   }
 
 }
