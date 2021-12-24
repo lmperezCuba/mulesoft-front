@@ -76,6 +76,11 @@
     font-weight: 500;
     color: mat.get-color-from-palette($f, text) !important;
   }
+
+  .mat-4, .subheading-2 {
+    color: mat.get-color-from-palette($f, text) !important;
+  }
+
 }
 
 @mixin theme($theme) {

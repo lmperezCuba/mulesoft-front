@@ -1,15 +1,16 @@
 import { ICartItem } from './../../../state-shopping-cart/interfaces/cart-item.interface';
 
-import { Component, EventEmitter, HostBinding, Input, OnInit, Output, Renderer2 } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, OnInit, Output, Renderer2, OnDestroy } from '@angular/core';
 import { SecurityService } from '../../services/security.service';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   cartItems$ = this.store.select('cartItems');
   @Output() drawer: EventEmitter<boolean> = new EventEmitter();
   @HostBinding('class') className = '';
@@ -19,6 +20,10 @@ export class HeaderComponent implements OnInit {
   activeDrawer = true;
   currentTheme = 'light';
   elementsOnCard = 0;
+  elementsCart: ICartItem[] = [];
+  totalCost: number = 0;
+  // Suscriptions
+  productsSuscription: Subscription | undefined;
 
   constructor(
     private store: Store<{ cartItems: ICartItem[] }>,
@@ -29,8 +34,15 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.loadTheme();
     this.cartItems$.subscribe(x => {
+      this.elementsCart = x;
       this.elementsOnCard = x.length;
+      this.totalCost = 0;
+      this.elementsCart.forEach(x => this.totalCost += +x.price);
     })
+  }
+
+  ngOnDestroy(): void {
+    this.productsSuscription?.unsubscribe();
   }
 
   /**

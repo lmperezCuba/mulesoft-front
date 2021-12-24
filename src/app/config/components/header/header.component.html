@@ -5,13 +5,14 @@
   <span fxHide.lt-sm>{{title}}</span>
   <span class="toolbar-spacer"></span>
   <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon"
-  *ngxPermissionsOnly="['ADMIN']">
+    *ngxPermissionsOnly="['ADMIN']">
     <mat-icon routerLink="['/dashboard']">home</mat-icon>
   </button>
-    <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon"
-      *ngxPermissionsOnly="['USER']">
-      <mat-icon routerLink="['/']" [matBadge]="elementsOnCard" [matBadgeHidden]="elementsOnCard===0" matBadgeColor="accent">shopping_cart</mat-icon>
-    </button>
+  <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon"
+    *ngxPermissionsOnly="['USER']" [matMenuTriggerFor]="menu">
+    <mat-icon routerLink="['/']" [matBadge]="elementsOnCard" [matBadgeHidden]="elementsOnCard===0"
+      matBadgeColor="accent">shopping_cart</mat-icon>
+  </button>
   <button mat-icon-button class="control-item favorite-icon" aria-label="icon-button with heart icon">
     <mat-icon>notifications</mat-icon>
   </button>
@@ -38,3 +39,36 @@
   </ng-template>
 
 </mat-toolbar>
+
+<mat-menu #menu="matMenu">
+  <div class="cart-popover" fxLayout="column" fxLayoutAlign="center">
+    <label class="subheading-2">Shopping Cart</label>
+    <mat-list>
+      <mat-list-item *ngFor="let item of elementsCart">
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1rem">
+          <div fxLayout="column">
+            <img mat-card-avatar src="assets/images/headphone-circle.jpg" alt="Headphone" class="square-image">
+          </div>
+          <div fxLayout="column">
+            <div fxLayout="row"><span>{{item.title}}: </span> </div>
+            <div fxLayout="row"> <span class="price">${{item.price}}</span> </div>
+          </div>
+          <div fxLayout="column">
+            <mat-icon aria-label="remove from shopping cart" matTooltip="Remove from cart">
+              remove_shopping_cart</mat-icon>
+          </div>
+        </div>
+      </mat-list-item>
+      <mat-list-item>
+        <div fxLayout="column" fxLayoutAlign="center" class="totalCost">
+          <label class="price">Total: ${{totalCost}}</label>
+        </div>
+      </mat-list-item>
+    </mat-list>
+    <button mat-raised-button color="primary" id="checkout">
+      Checkout
+      <mat-icon>shopping_cart_checkout</mat-icon>
+    </button>
+  </div>
+
+</mat-menu>

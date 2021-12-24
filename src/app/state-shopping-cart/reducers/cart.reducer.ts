@@ -6,6 +6,9 @@ export const initialState: ReadonlyArray<ICartItem> = [];
 
 export const cartItemsReducer = createReducer(
   initialState,
-  on(addItem2Cart, (state, { cartItem }) => [...state, cartItem]),
+  on(addItem2Cart, (state, { cartItem }) => {    
+    if (state.find(x => x.uuid === cartItem.uuid)) return state;
+    return [...state, cartItem];
+  }),
   on(retrievedCartItems, (state, { cartItems }) => cartItems),
 );

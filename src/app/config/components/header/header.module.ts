@@ -1,3 +1,5 @@
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,7 +22,10 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatIconModule,
     FlexLayoutModule,
     NgxPermissionsModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatMenuModule,
+    MatListModule,
+    MatButtonModule
   ],
   exports: [HeaderComponent]
 })

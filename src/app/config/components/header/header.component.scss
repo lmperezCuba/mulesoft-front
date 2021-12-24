@@ -14,3 +14,37 @@ app-header mat-icon {
   width: 1em !important;
   height: 1em !important;
 }
+
+.mat-list-base .mat-list-item,
+.mat-list-base .mat-list-option {
+  padding-top: 5px;
+  min-height: 25px !important;
+  &:last-child() {
+    border-bottom: none !important;
+  }
+  img.square-image {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+  .price {
+    font-weight: bold;
+  }
+  .totalCost {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.mat-list-item-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between !important;
+}
+
+#checkout {
+  margin: 1rem 1rem 0 1rem;
+}
+
+.subheading-2 {
+ text-align: center;
+}
