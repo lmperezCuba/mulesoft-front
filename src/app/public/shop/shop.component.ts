@@ -37,7 +37,7 @@ export class ShopComponent implements OnInit, OnDestroy {
    */
   onAddItem2Cart(product: IProduct) {
     const { id, name, price } = product;
-    this.store.dispatch(addItem2Cart({ cartItem: { amount: 0, image: null, price: price, title: name, uuid: id } }));
+    this.store.dispatch(addItem2Cart({ cartItem: { amount: 1, image: null, price: price, title: name, uuid: id } }));
   }
 
 }
