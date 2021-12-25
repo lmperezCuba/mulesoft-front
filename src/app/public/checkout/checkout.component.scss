@@ -6,6 +6,9 @@ h2.title {
 table {
   width: calc(100% - 2rem);
   margin: 1rem;
+  .removeFromCart {
+    cursor: pointer;
+  }
   img.square-image {
     height: 4rem;
     width: 4rem;

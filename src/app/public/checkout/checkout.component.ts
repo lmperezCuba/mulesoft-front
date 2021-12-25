@@ -1,4 +1,4 @@
-import { decrementItemFromCart, incrementItemFromCart } from './../../state-shopping-cart/cart.actions';
+import { decrementItemFromCart, incrementItemFromCart, removeItemFromCart } from './../../state-shopping-cart/cart.actions';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -13,7 +13,7 @@ export class CheckoutComponent implements OnInit {
   cartItems$ = this.store.select('cartItems');
   elementsCart: ICartItem[] = [];
   totalCost: number = 0;
-  displayedColumns: string[] = ['image', 'title', 'amount', 'price'];
+  displayedColumns: string[] = ['image', 'title', 'amount', 'price', 'remove'];
   // Suscriptions
   productsSuscription: Subscription | undefined;
 
@@ -27,13 +27,27 @@ export class CheckoutComponent implements OnInit {
     })
   }
 
+  /**
+   * Decrement items from cart.
+   * @param itemId item to increment
+   */
   decrement(itemId: string) {
     this.store.dispatch(decrementItemFromCart({ uuid: itemId }));
   }
 
+  /**
+   * Increment items on cart.
+   * @param itemId item to increment
+   */
   increment(itemId: string) {
-    console.log(1);
-    
     this.store.dispatch(incrementItemFromCart({ uuid: itemId }));
+  }
+
+  /**
+   * Remove Product from cart
+   * @param productId id
+   */
+  onRemoveItemFromCart(productId: string) {
+    this.store.dispatch(removeItemFromCart({ uuid: productId }));
   }
 }
