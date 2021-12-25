@@ -1,3 +1,4 @@
+import { decrementItemFromCart, incrementItemFromCart } from './../cart.actions';
 import { createReducer, on } from '@ngrx/store';
 import { addItem2Cart, removeItemFromCart, retrievedCartItems } from '../cart.actions';
 import { ICartItem } from '../interfaces/cart-item.interface';
@@ -19,5 +20,26 @@ export const cartItemsReducer = createReducer(
     }
     return state;
   }),
+  on(decrementItemFromCart, (state, { uuid }) => {
+    const newState = state.map(x => {
+      if (x.uuid === uuid && x.amount > 1) return {
+        ...x, amount: x.amount - 1
+      }
+      return x;
+    });
+    localStorage.setItem('cart', JSON.stringify(newState)); // persist data
+    return newState;
+  }),
+  on(incrementItemFromCart, (state, { uuid }) => {
+    const newState = state.map(x => {
+      if (x.uuid === uuid) return {
+        ...x, amount: x.amount + 1
+      }
+      return x;
+    });
+    localStorage.setItem('cart', JSON.stringify(newState)); // persist data
+    return newState;
+  }),
   on(retrievedCartItems, (state, { cartItems }) => cartItems),
 );
+

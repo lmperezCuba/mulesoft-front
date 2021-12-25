@@ -15,3 +15,13 @@ export const retrievedCartItems = createAction(
   '[Cart Item List/API] Retrieve Cart Items Success',
   props<{ cartItems: ReadonlyArray<ICartItem> }>()
 );
+
+export const decrementItemFromCart = createAction(
+  '[Cart Item Decrement] Decrement Cart Item',
+  props<{ uuid: string }>()
+);
+
+export const incrementItemFromCart = createAction(
+  '[Cart Item Increment] Increment Cart Item',
+  props<{ uuid: string }>()
+);

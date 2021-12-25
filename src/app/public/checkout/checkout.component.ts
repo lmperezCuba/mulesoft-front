@@ -1,3 +1,4 @@
+import { decrementItemFromCart, incrementItemFromCart } from './../../state-shopping-cart/cart.actions';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -26,4 +27,13 @@ export class CheckoutComponent implements OnInit {
     })
   }
 
+  decrement(itemId: string) {
+    this.store.dispatch(decrementItemFromCart({ uuid: itemId }));
+  }
+
+  increment(itemId: string) {
+    console.log(1);
+    
+    this.store.dispatch(incrementItemFromCart({ uuid: itemId }));
+  }
 }
