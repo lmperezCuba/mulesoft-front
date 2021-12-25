@@ -1,0 +1,37 @@
+h2.title {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+table {
+  width: calc(100% - 2rem);
+  margin: 1rem;
+  img.square-image {
+    height: 4rem;
+    width: 4rem;
+    vertical-align: middle;
+    padding: 0.5rem;
+  }
+  .amount-action {
+    height: 1.5rem;
+    width: 1.5rem;
+    vertical-align: middle;
+    overflow: hidden;
+    > * {
+      padding: 0 !important;
+    }
+    mat-icon {
+      height: 20px !important;
+      width: 20px !important;
+      font-size: 20px !important;
+      line-height: 2px !important;
+    }
+  }
+  .amount-space {
+    padding: 0 0.5rem;
+  }
+}
+
+.center {
+  text-align: center;
+}

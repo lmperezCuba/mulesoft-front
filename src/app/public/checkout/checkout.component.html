@@ -1,1 +1,48 @@
-<p>checkout works!</p>
+<section fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1rem">
+  <div *ngIf="elementsCart.length === 0; else tableData">
+    <h2 class="title">Sorry, the cart is empty.</h2>
+  </div>
+
+  <ng-template #tableData>
+    <h2 class="title">Your Shopping Cart</h2>
+    <table mat-table [dataSource]="elementsCart" class="mat-elevation-z8">
+
+      <!-- Imagen Column -->
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef> Image </th>
+        <td mat-cell *matCellDef="let element">
+          <img mat-card-avatar src="assets/images/headphone-circle.jpg" alt="Headphone" class="square-image">
+        </td>
+      </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+      </ng-container>
+
+      <!-- Amount Column -->
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef> Amount </th>
+        <td mat-cell *matCellDef="let element" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1rem">
+          <button mat-mini-fab color="primary" class="amount-action"><mat-icon>remove</mat-icon></button>
+          <label class="amount-space">{{element.amount}}</label>
+          <button mat-mini-fab color="primary" class="amount-action"><mat-icon>add</mat-icon></button>
+        </td>
+      </ng-container>
+
+      <!-- Cost Column -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Cost </th>
+        <td mat-cell *matCellDef="let element"> ${{element.price * element.amount}} </td>
+      </ng-container>
+
+      <!--
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  -->
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <h4 class="subheading-1 center">Total: ${{totalCost}}</h4>
+  </ng-template>
+
+</section>
