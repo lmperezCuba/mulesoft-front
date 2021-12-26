@@ -1,4 +1,4 @@
-import { decrementItemFromCart, incrementItemFromCart } from './../cart.actions';
+import { clearCart, incrementItemFromCart, decrementItemFromCart } from './../cart.actions';
 import { createReducer, on } from '@ngrx/store';
 import { addItem2Cart, removeItemFromCart, retrievedCartItems } from '../cart.actions';
 import { ICartItem } from '../interfaces/cart-item.interface';
@@ -41,5 +41,6 @@ export const cartItemsReducer = createReducer(
     return newState;
   }),
   on(retrievedCartItems, (state, { cartItems }) => cartItems),
+  on(clearCart, (state) => { return [] }),
 );
 

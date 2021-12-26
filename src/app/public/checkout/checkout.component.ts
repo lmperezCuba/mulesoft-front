@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { CheckoutService } from './checkout.service';
 import { HttpClient } from '@angular/common/http';
-import { decrementItemFromCart, incrementItemFromCart, removeItemFromCart } from './../../state-shopping-cart/cart.actions';
+import { clearCart, decrementItemFromCart, incrementItemFromCart, removeItemFromCart } from './../../state-shopping-cart/cart.actions';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription, first } from 'rxjs';
@@ -63,6 +63,7 @@ export class CheckoutComponent implements OnInit {
     this.checkoutService.buy(this.elementsCart)
       .pipe(first())
       .subscribe(res => {
+        this.store.dispatch(clearCart()); // clean shopping cart
         this.router.navigate(['public', 'shopping-list']);
       });
   }

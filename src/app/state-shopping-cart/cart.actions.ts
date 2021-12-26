@@ -25,3 +25,7 @@ export const incrementItemFromCart = createAction(
   '[Cart Item Increment] Increment Cart Item',
   props<{ uuid: string }>()
 );
+
+export const clearCart = createAction(
+  '[Cart Item Clear] Clear Cart Items'
+);
