@@ -58,6 +58,14 @@ export class FakeApiServerInterceptor implements HttpInterceptor {
         
         data = this.fakeDBRepository.buy(request.body as ICartItem[]);
         break;
+        default:
+        if (request.url.startsWith('http://localhost:3000/apiv1/sells/')){
+          console.log(request.url.substr('http://localhost:3000/apiv1/sells/'.length));
+          
+        }
+        const sells = this.fakeDBRepository.findAll(Classes.sells);
+        data = { count: sells.length, items: sells }
+        break;
     }
     return of(new HttpResponse({ status: 200, body: data }));
   }

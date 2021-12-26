@@ -1,1 +1,42 @@
-<p>shopping-list works!</p>
+<section fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1rem" style="margin-top: 1rem;">
+  <h2 class="title">Your Shopping Cart</h2>
+</section>
+
+<mat-card>
+  <mat-card-content>
+    <app-mat-data-table [selectAvailable]="true" #tabla [serviceData]="shoppingListService" [verticalLine]="true">
+      <app-mat-column-table title="Products" matColumnDef="items" type="string">
+        <td mat-cell *matCellDef="let row">
+          <ul>
+            <li *ngFor="let item of row.items">{{item.title}} - ({{item.amount}} items)</li>
+          </ul>
+        </td>
+      </app-mat-column-table>
+      <app-mat-column-table title="Total cost" matColumnDef="totalCost" type="number" [sort]="true">
+        <td mat-cell *matCellDef="let row" style="text-align: right">
+          ${{row.totalCost}}
+        </td>
+      </app-mat-column-table>
+      <app-mat-column-table title="Date" matColumnDef="createdAt" type="date" [sort]="true" defaultFilter="startswith">
+        <td mat-cell *matCellDef="let row">
+          {{row.createdAt | date: 'short'}}
+        </td>
+      </app-mat-column-table>
+      <app-mat-column-table title="Estado" matColumnDef="state" type="string">
+        <td mat-cell *matCellDef="let row">
+         {{row.state}}
+        </td>
+      </app-mat-column-table>
+
+      <app-mat-paginator-data-table [pageSizeOptions]="[10,25,100]">
+      </app-mat-paginator-data-table>
+
+      <app-mat-error-data-table>
+        Existen problemas al cargar los datos.
+        <br>
+        <button mat-raised-button color="warn" (click)="tabla.reloadData()">Recargar</button>
+      </app-mat-error-data-table>
+    </app-mat-data-table>
+
+  </mat-card-content>
+</mat-card>

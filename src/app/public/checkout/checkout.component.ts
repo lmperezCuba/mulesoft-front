@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { CheckoutService } from './checkout.service';
 import { HttpClient } from '@angular/common/http';
 import { decrementItemFromCart, incrementItemFromCart, removeItemFromCart } from './../../state-shopping-cart/cart.actions';
@@ -19,7 +20,9 @@ export class CheckoutComponent implements OnInit {
   // Suscriptions
   productsSuscription: Subscription | undefined;
 
-  constructor(private store: Store<{ cartItems: ICartItem[] }>, private checkoutService: CheckoutService) { }
+  constructor(private store: Store<{ cartItems: ICartItem[] }>,
+    private checkoutService: CheckoutService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.cartItems$.subscribe(x => {
@@ -58,8 +61,10 @@ export class CheckoutComponent implements OnInit {
    */
   buy() {
     this.checkoutService.buy(this.elementsCart)
-    .pipe(first())
-    .subscribe(res => console.log(res));
+      .pipe(first())
+      .subscribe(res => {
+        this.router.navigate(['public', 'shopping-list']);
+      });
   }
 
 }

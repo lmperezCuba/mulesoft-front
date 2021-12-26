@@ -17,7 +17,6 @@ import { DataGridModule } from '../../../config/components/data-grid/data-grid.m
     CommonModule,
     ListRoutingModule,
     MatButtonModule,
-    MatButtonModule,
     FlexLayoutModule,
     MatCardModule,
     DataGridModule,

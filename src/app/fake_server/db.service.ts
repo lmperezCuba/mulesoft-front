@@ -40,9 +40,9 @@ export class DbService {
         roles.push(role);
         localStorage.setItem('roles', JSON.stringify(roles));
         return role;
-      case 'sell':
-        const { products } = data as unknown as Sell;
-        const sell: Sell = new Sell(products);
+      case 'sells':
+        const { items, userId } = data as unknown as Sell;
+        const sell: Sell = new Sell(items, userId);
         const sells: Sell[] = this.getItem('sells');
         sells.push(sell);
         localStorage.setItem('sells', JSON.stringify(sells));
@@ -67,6 +67,9 @@ export class DbService {
       case 'roles':
         const roles: Role[] = this.getItem('roles');
         return roles;
+      case 'sells':
+        const sells: Sell[] = this.getItem('sells');
+        return sells;
     }
     throw Error('Some error has ocurred.');
   }
@@ -90,13 +93,15 @@ export class DbService {
     // SAGA transcaction simulation 
     const transaction = true;
     const errors: string[] = [];
-    items.forEach(item => {
+    console.log(items);
+    
+    //items.forEach(item => {
       // const product: Product = (this.findAll(Classes.products) as Product[])
       //   .find((x: Product) => x.id === item.uuid);
       // check stock if(item.amount <= product.stock) 
-    });
+    //});
     if (transaction) {
-      this.save(Classes.sell, items);
+      this.save(Classes.sells, items);
     } else {
       throw new Error(errors.join())
     }

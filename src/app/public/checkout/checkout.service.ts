@@ -16,7 +16,7 @@ export class CheckoutService {
    */
   buy(elementsCart: ICartItem[]): Observable<any> {
     console.log('pass 1');
-    return this.httpClient.post<any>('http://localhost:3000/apiv1/buy', elementsCart);
+    return this.httpClient.post<any>('http://localhost:3000/apiv1/buy', { items: elementsCart, userId: 'user'});
   }
 
 }
