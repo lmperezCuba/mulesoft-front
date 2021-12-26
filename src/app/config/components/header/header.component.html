@@ -48,7 +48,7 @@
   <button mat-menu-item>
     <mat-icon>person</mat-icon> Profile
   </button>
-  <button mat-menu-item routerLink="/public/shopping-list">
+  <button mat-menu-item routerLink="/public/shopping-list" *ngxPermissionsOnly="['USER']">
     <mat-icon>local_mall</mat-icon> Shopping list
   </button>
   <button mat-menu-item (click)="logout()">
