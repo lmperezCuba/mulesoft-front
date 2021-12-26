@@ -14,7 +14,7 @@
   </button>
   <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon"
     *ngxPermissionsOnly="['USER']" [matMenuTriggerFor]="menu">
-    <mat-icon routerLink="['/']" [matBadge]="elementsOnCard" [matBadgeHidden]="elementsOnCard===0"
+    <mat-icon [matBadge]="elementsOnCard" [matBadgeHidden]="elementsOnCard===0"
       matBadgeColor="accent">shopping_cart</mat-icon>
   </button>
   <button mat-icon-button class="control-item favorite-icon" aria-label="icon-button with heart icon">
