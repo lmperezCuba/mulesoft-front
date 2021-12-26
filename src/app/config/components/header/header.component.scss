@@ -8,9 +8,9 @@ mat-toolbar {
   flex: 1 1 auto;
 }
 
-app-header mat-icon {
+.control-item .mat-icon-button {
   font-size: 1.5rem !important;
-  line-height: 1 !important;
-  width: 1em !important;
-  height: 1em !important;
+  line-height: 1.5em !important;
+  width: 1.5em !important;
+  height: 1.5em !important;
 }

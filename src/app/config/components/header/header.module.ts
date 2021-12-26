@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { NgxPermissionsModule } from 'ngx-permissions';
@@ -18,6 +19,7 @@ import { CartComponent } from './cart/cart.component';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
