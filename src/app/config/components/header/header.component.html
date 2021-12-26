@@ -14,10 +14,11 @@
   </button>
   <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon"
     *ngxPermissionsOnly="['USER']" [matMenuTriggerFor]="menu">
-    <mat-icon [matBadge]="elementsOnCard" [matBadgeHidden]="elementsOnCard===0"
-      matBadgeColor="accent">shopping_cart</mat-icon>
+    <mat-icon [matBadge]="elementsOnCard" [matBadgeHidden]="elementsOnCard===0" matBadgeColor="accent">shopping_cart
+    </mat-icon>
   </button>
-  <button mat-icon-button class="control-item favorite-icon" aria-label="icon-button with heart icon">
+  <button mat-icon-button class="control-item favorite-icon" aria-label="icon-button with heart icon"
+    [matMenuTriggerFor]="menuNotifications">
     <mat-icon>notifications</mat-icon>
   </button>
   <button mat-icon-button class="control-item" aria-label="icon-button with help outline icon">
@@ -31,7 +32,7 @@
   <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon"
     (click)="changeTheme()">
     <ng-container *ngIf="currentTheme==='dark'; else darkIcon">
-    <mat-icon>light_mode</mat-icon>
+      <mat-icon>light_mode</mat-icon>
     </ng-container>
     <ng-template #darkIcon>
       <mat-icon>dark_mode</mat-icon>
@@ -54,4 +55,10 @@
   <button mat-menu-item (click)="logout()">
     <mat-icon>logout</mat-icon> Logout
   </button>
+</mat-menu>
+
+<mat-menu #menuNotifications="matMenu">
+  <div class="menuNotifications">
+    <mat-icon>notifications_none</mat-icon>
+  </div>
 </mat-menu>

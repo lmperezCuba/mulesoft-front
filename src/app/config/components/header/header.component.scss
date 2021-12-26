@@ -14,3 +14,13 @@ mat-toolbar {
   width: 1.5em !important;
   height: 1.5em !important;
 }
+
+.menuNotifications {
+  padding: 1rem;
+  .mat-icon {
+    height: 10rem !important;
+    width: 10rem !important;
+    font-size: 10rem !important;
+    opacity: 0.1;
+  }
+}
