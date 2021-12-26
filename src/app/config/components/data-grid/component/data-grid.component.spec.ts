@@ -17,7 +17,6 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbInputModule, NbSelectModule, NbCardModule } from '@nebular/theme';
 import { DataGridComponent } from './data-grid.component';
 
 describe('DataGridComponent', () => {
@@ -31,8 +30,6 @@ describe('DataGridComponent', () => {
         CommonModule,
         ReactiveFormsModule,
         FormsModule,
-        NbInputModule,
-        NbSelectModule,
         MatInputModule,
         MatTableModule,
         MatCheckboxModule,
@@ -47,7 +44,6 @@ describe('DataGridComponent', () => {
         MatRadioModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        NbCardModule,
         MatSelectModule,
         BrowserAnimationsModule,
       ],

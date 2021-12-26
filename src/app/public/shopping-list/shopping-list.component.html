@@ -4,7 +4,8 @@
 
 <mat-card>
   <mat-card-content>
-    <app-mat-data-table [selectAvailable]="true" #tabla [serviceData]="shoppingListService" [verticalLine]="true">
+    <app-mat-data-table [selectAvailable]="true" #tabla [serviceData]="shoppingListService"
+     [verticalLine]="true" [selectAvailable]="false">
       <app-mat-column-table title="Products" matColumnDef="items" type="string">
         <td mat-cell *matCellDef="let row">
           <ul>

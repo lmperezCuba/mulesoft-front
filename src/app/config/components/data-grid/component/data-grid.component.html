@@ -19,13 +19,13 @@
 
         <!-- Checkbox Column -->
         <ng-container matColumnDef="select">
-          <th [hidden]="!selectAvailable" mat-header-cell *matHeaderCellDef rowspan="2">
+          <th [hidden]="!!!selectAvailable" mat-header-cell *matHeaderCellDef rowspan="2">
             <mat-checkbox (click)="$event.preventDefault(); masterToggle()"
                           [checked]="selection.hasValue() && isAllSelected()"
                           [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
             </mat-checkbox>
           </th>
-          <td [hidden]="!selectAvailable" mat-cell *matCellDef="let row">
+          <td [hidden]="!!!selectAvailable" mat-cell *matCellDef="let row">
             <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selectRow(row.id) : null"
                           [checked]="selection.isSelected(row.id)" [aria-label]="checkboxLabel(row.id)">
             </mat-checkbox>

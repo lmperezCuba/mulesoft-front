@@ -109,7 +109,7 @@ export class DataGridComponent
   };
 
   @Input() selectColumn = true;
-  @Input() selectAvailable = false;
+  @Input() selectAvailable = true;
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort?: MatSort;
   @ViewChild(MatTable, { static: true }) matTabla?: MatTable<unknown>;
