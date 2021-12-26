@@ -5,7 +5,8 @@
   </div>
 
   <section class="products-catalog" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="1rem">
-    <mat-card *ngFor="let product of products.items; index as i" fxFlex="0 1 calc(20% - 1rem)" fxLayout="column">
+    <mat-card *ngFor="let product of products.items; index as i" fxFlex.gt-md="0 1 calc(20% - 1rem)" 
+    fxFlex.gt-sm="0 1 calc(25% - 1rem)" fxFlex.lt-sm="100%" fxLayout="column">
       <mat-card-header>
         <img mat-card-avatar src="assets/images/headphone-circle.jpg" alt="Headphone">
         <mat-card-title>{{ product.name }}</mat-card-title>
