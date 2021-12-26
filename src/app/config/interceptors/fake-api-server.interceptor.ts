@@ -1,3 +1,4 @@
+import { ICartItem } from './../../state-shopping-cart/interfaces/cart-item.interface';
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,
@@ -8,7 +9,7 @@ import {
 } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { DbService } from '../../fake_server/db.service';
-import { Classes } from 'src/app/fake_server/classes.enum';
+import { Classes } from '../../fake_server/classes.enum';
 
 @Injectable()
 export class FakeApiServerInterceptor implements HttpInterceptor {
@@ -51,6 +52,11 @@ export class FakeApiServerInterceptor implements HttpInterceptor {
         } else if (username === 'user' && password === '123') {
           data = { claims: ['USER'] }
         }
+        break;
+      case 'http://localhost:3000/apiv1/buy':
+        console.log(request.body);
+        
+        data = this.fakeDBRepository.buy(request.body as ICartItem[]);
         break;
     }
     return of(new HttpResponse({ status: 200, body: data }));

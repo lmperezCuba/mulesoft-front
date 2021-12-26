@@ -1,7 +1,9 @@
+import { CheckoutService } from './checkout.service';
+import { HttpClient } from '@angular/common/http';
 import { decrementItemFromCart, incrementItemFromCart, removeItemFromCart } from './../../state-shopping-cart/cart.actions';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Subscription, first } from 'rxjs';
 import { ICartItem } from '../../state-shopping-cart/interfaces/cart-item.interface';
 
 @Component({
@@ -17,7 +19,7 @@ export class CheckoutComponent implements OnInit {
   // Suscriptions
   productsSuscription: Subscription | undefined;
 
-  constructor(private store: Store<{ cartItems: ICartItem[] }>) { }
+  constructor(private store: Store<{ cartItems: ICartItem[] }>, private checkoutService: CheckoutService) { }
 
   ngOnInit(): void {
     this.cartItems$.subscribe(x => {
@@ -50,4 +52,14 @@ export class CheckoutComponent implements OnInit {
   onRemoveItemFromCart(productId: string) {
     this.store.dispatch(removeItemFromCart({ uuid: productId }));
   }
+
+  /**
+   * Buy the products on the shopping cart.
+   */
+  buy() {
+    this.checkoutService.buy(this.elementsCart)
+    .pipe(first())
+    .subscribe(res => console.log(res));
+  }
+
 }

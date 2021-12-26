@@ -24,7 +24,7 @@
       <!-- Amount Column -->
       <ng-container matColumnDef="amount">
         <th mat-header-cell *matHeaderCellDef> Amount </th>
-        <td mat-cell *matCellDef="let element" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1rem">
+        <td mat-cell *matCellDef="let element">
           <button mat-mini-fab color="primary" class="amount-action" (click)="decrement(element.uuid)">
             <mat-icon>remove</mat-icon>
           </button>
@@ -56,7 +56,13 @@
   -->
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <h4 class="subheading-1 center">Total: ${{totalCost}}</h4>
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1rem" style="width: 95%;">
+      <label class="subheading-1 center" style="font-weight: bold;">Total: ${{totalCost}}</label>
+      <button mat-raised-button color="primary" (click)="buy()">
+        Buy
+      </button>
+    </div>
+
   </ng-template>
 
 </section>

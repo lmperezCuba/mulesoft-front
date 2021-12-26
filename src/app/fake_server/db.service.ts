@@ -1,8 +1,10 @@
+import { ICartItem } from './../state-shopping-cart/interfaces/cart-item.interface';
 import { Role } from './dataTypes/role.class';
 import { User } from './dataTypes/user.class';
 import { Injectable } from '@angular/core';
 import { Classes } from './classes.enum';
 import { Product } from './dataTypes/product.class';
+import { Sell } from './dataTypes/sell.class';
 
 @Injectable({ providedIn: 'root' })
 export class DbService {
@@ -25,11 +27,11 @@ export class DbService {
         localStorage.setItem('users', JSON.stringify(users));
         return user;
       case 'products':
-        const { name, price } = data as unknown as Product;
-        const product: Product = new Product(name, price);
-        const products: Product[] = this.getItem('products');
-        products.push(product);
-        localStorage.setItem('products', JSON.stringify(products));
+        const { name, price, stock } = data as unknown as Product;
+        const product: Product = new Product(name, price, stock);
+        const _products: Product[] = this.getItem('products');
+        _products.push(product);
+        localStorage.setItem('products', JSON.stringify(_products));
         return product;
       case 'roles':
         const { rolename } = data as unknown as Role;
@@ -38,6 +40,13 @@ export class DbService {
         roles.push(role);
         localStorage.setItem('roles', JSON.stringify(roles));
         return role;
+      case 'sell':
+        const { products } = data as unknown as Sell;
+        const sell: Sell = new Sell(products);
+        const sells: Sell[] = this.getItem('sells');
+        sells.push(sell);
+        localStorage.setItem('sells', JSON.stringify(sells));
+        return sell;
     }
     throw Error('Some error has ocurred.');
   }
@@ -56,11 +65,7 @@ export class DbService {
         const products: Product[] = this.getItem('products');
         return products;
       case 'roles':
-        console.log('pass');
-        
         const roles: Role[] = this.getItem('roles');
-        console.log(roles);
-        
         return roles;
     }
     throw Error('Some error has ocurred.');
@@ -70,10 +75,31 @@ export class DbService {
    * Save access to localstorage
    * @param key ls key
    */
-  private getItem(key: string) {    
+  private getItem(key: string) {
     if (localStorage.getItem(key) === null) {
       localStorage.setItem(key, JSON.stringify([]));
     }
     return JSON.parse(localStorage.getItem(key) as string)
+  }
+
+  /**
+   * Simulate a sell
+   * @param items to buy
+   */
+  buy(items: ICartItem[]) {
+    // SAGA transcaction simulation 
+    const transaction = true;
+    const errors: string[] = [];
+    items.forEach(item => {
+      // const product: Product = (this.findAll(Classes.products) as Product[])
+      //   .find((x: Product) => x.id === item.uuid);
+      // check stock if(item.amount <= product.stock) 
+    });
+    if (transaction) {
+      this.save(Classes.sell, items);
+    } else {
+      throw new Error(errors.join())
+    }
+
   }
 }
