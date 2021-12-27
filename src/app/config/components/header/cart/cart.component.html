@@ -1,0 +1,32 @@
+<div class="cart-popover" fxLayout="column" fxLayoutAlign="center">
+  <h3 class="subheading-2">Shopping Cart</h3>
+  <mat-list>
+    <mat-list-item *ngFor="let item of elementsCart">
+      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1rem">
+        <div fxLayout="column">
+          <img mat-card-avatar src="assets/images/headphone-circle.jpg" alt="Headphone" class="square-image">
+        </div>
+        <div fxLayout="column">
+          <div fxLayout="row"><span>{{item.title}}: </span> </div>
+          <div fxLayout="row"> <h5 class="caption">${{item.price}}</h5> </div>
+        </div>
+        <div fxLayout="column">
+          <mat-icon aria-label="remove from shopping cart" class="removeFromCart" matTooltip="Remove from cart"
+            (click)="onRemoveItemFromCart(item.uuid);$event.stopPropagation();">
+            remove_shopping_cart</mat-icon>
+        </div>
+      </div>
+    </mat-list-item>
+<!--
+      <mat-list-item>
+      <div fxLayout="column" fxLayoutAlign="center" class="totalCost">
+        <label class="price">Total: ${{totalCost}}</label>
+      </div>
+    </mat-list-item>
+-->
+  </mat-list>
+  <button mat-raised-button color="primary" id="checkout" (click)="checkout()">
+    Checkout
+    <mat-icon>shopping_cart_checkout</mat-icon>
+  </button>
+</div>

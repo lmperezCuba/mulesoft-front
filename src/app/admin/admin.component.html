@@ -1,0 +1,16 @@
+<app-header [hasMenu]="true" (drawer)="selectedDrawer($event)" style="background-color: blue;"></app-header>
+<mat-sidenav-container>
+  <mat-sidenav #drawer [mode]="mobileQuery.matches ? 'side' : 'over'" [fixedTopGap]="0" [opened]="mobileQuery.matches"
+    [disableClose]="mobileQuery.matches">
+    <div>
+      <app-sidebar></app-sidebar>
+    </div>
+
+  </mat-sidenav>
+  <mat-sidenav-content class="page-wrapper">
+    <div class="page-content">
+      
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

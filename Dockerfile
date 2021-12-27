@@ -1,0 +1,60 @@
+# PRODUCTION DOCKERFILE
+# ---------------------
+# This Dockerfile allows to build a Docker image for an Angular application
+# and based on a NodeJS 16 image. The multi-stage mechanism allows to build
+# the application in a "builder" stage and then create a production
+# image containing the required dependencies and the JS build files.
+
+# For manual build you can execute:
+# docker build . --target=deployment --name=mulesoft-frontend-angular:1.0.0
+
+#----------------------
+#   Building stage
+#----------------------
+
+FROM node:16 AS builder
+
+ENV TZ=America/Havana
+ENV COMPOSE_HTTP_TIMEOUT=200
+
+WORKDIR /home/node/app
+
+RUN npm install @angular/cli
+
+# COPY --chown=node:node package*.json ./
+# RUN chown -R node:node /home/node/app
+# USER node
+
+# RUN npm run install
+#RUN yarn config set strict-ssl false \
+#&& yarn config set ignore-engines true \
+#&& yarn install --network-timeout 1000000 --no-optional \
+#&& yarn cache clean --force
+
+COPY . .
+
+#----------------------
+#   Deployment stage
+#----------------------
+
+FROM node:16 AS deployment
+
+ENV TZ=America/Havana
+ENV NODE_ENV=dev
+ENV COMPOSE_HTTP_TIMEOUT=200
+
+WORKDIR /home/node/app
+
+COPY --from=builder /home/node/app .
+
+RUN ["npm", "run", "build:prod"]
+
+#----------------------
+#   Production stage
+#----------------------
+
+FROM nginx as production
+
+COPY --from=deployment /home/node/app/dist /var/www/html
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+

@@ -1,0 +1,12 @@
+// CUSTOM COMPONENTS
+@use "../../admin/sidebar/menu-list-item/menu-list-item" as menu-list-item;
+@use "../../admin/admin-theme.scss" as admin;
+@use "../../login/login-theme.scss" as login;
+@use "./global";
+
+@mixin all-custom-component-theme-colors($theme-or-color-config) {
+  @include menu-list-item.theme($theme-or-color-config);
+  @include admin.theme($theme-or-color-config);
+  @include login.theme($theme-or-color-config);
+  @include global.theme($theme-or-color-config);
+}

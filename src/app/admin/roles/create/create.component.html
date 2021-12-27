@@ -1,0 +1,34 @@
+<h3>Create role</h3>
+<mat-divider class="separator"></mat-divider>
+<div class="buttons" fxLayout="row" fxLayoutAlign="start">
+  <button mat-raised-button color="primary" [routerLink]="[ '../list' ]">
+    <mat-icon aria-hidden="false" aria-label="Example chevron_left icon">chevron_left</mat-icon>
+    Back
+  </button>
+</div>
+
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="form" fxLayout="row wrap" fxLayout.xs="column wrap" fxLayoutAlign="start start"
+      fxLayoutGap="1rem">
+
+      <mat-form-field appearance="outline" fxLayout="column" fxLayout.xs="row" fxFlex.lt-md="100%" fxFlex.gt-md="33%">
+        <mat-label>Rolename:</mat-label>
+        <input matInput formControlName="rolename" maxlength="30">
+        <mat-error *ngIf="f['rolename'].hasError('required')">
+          Rolename required.
+        </mat-error>
+        <mat-error *ngIf="f['rolename'].hasError('fieldExist')">
+          The rolename already exist.
+        </mat-error>
+      </mat-form-field>
+
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<div class="buttons margin-top" fxLayout="row" fxLayoutAlign="end">
+  <button mat-raised-button color="primary" [disabled]="!form.valid || submitted===true" (click)="create()">
+    Create
+  </button>
+</div>

@@ -1,0 +1,55 @@
+@use "@angular/material" as mat;
+@use "./material-light-theme" as light-theme;
+@use "./material-dark-theme" as dark-theme;
+@use "./all-custom-theme-colors" as custom-colors;
+
+// @use "./all-custom-theme-colors" as custom-colors;
+@include mat.core();
+
+// Apply the dark theme by default
+@include mat.all-component-themes(light-theme.$light-theme);
+@include custom-colors.all-custom-component-theme-colors(light-theme.$light-theme);
+// Apply the light theme only when the `.my-light-theme` CSS class is applied
+// to an ancestor element of the components (such as `body`).
+.dark-theme {
+  @include mat.all-component-colors(dark-theme.$dark-theme);
+  @include custom-colors.all-custom-component-theme-colors(dark-theme.$dark-theme);
+}
+
+// CUSTOM STYLE
+mat-icon {
+  font-size: 1.25rem !important;
+  line-height: 1 !important;
+  width: 1em !important;
+  height: 1em !important;
+}
+
+.hr-row {
+  margin: 0.5rem 0 !important;
+  height: 0;
+  border: none;
+  background-color: transparent !important;
+}
+
+.buttons-form {
+  width: 100% !important;
+}
+
+
+h2.title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+}
+
+mat-error, .hint-error {
+  font-style: italic !important;
+}
+
+.hint-error {
+  font-size: small !important;
+}
+
+mat-divider.separator {
+  padding-bottom: 1rem;
+}

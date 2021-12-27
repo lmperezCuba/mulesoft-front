@@ -1,0 +1,75 @@
+<h3>Create user</h3>
+<mat-divider class="separator"></mat-divider>
+<div class="buttons" fxLayout="row" fxLayoutAlign="start">
+  <button mat-raised-button color="primary" [routerLink]="[ '../list' ]">
+    <mat-icon aria-hidden="false" aria-label="Example chevron_left icon">chevron_left</mat-icon>
+    Back
+  </button>
+</div>
+
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="form" fxLayout="row wrap" fxLayout.xs="column wrap" fxLayoutAlign="start start"
+      fxLayoutGap="1rem">
+
+      <mat-form-field appearance="outline" fxLayout="column" fxLayout.xs="row" fxFlex="1 1 calc(50% - 1rem)">
+        <mat-label>Username:</mat-label>
+        <input matInput formControlName="username" maxlength="30">
+        <mat-error *ngIf="f['username'].hasError('required')">
+          Username required.
+        </mat-error>
+        <mat-error *ngIf="f['username'].hasError('fieldExist')">
+          The username already exist.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxLayout.xs="row" fxFlex="1 1 calc(50% - 1rem)">
+        <mat-label>Email:</mat-label>
+        <input matInput formControlName="email" maxlength="30">
+        <mat-error *ngIf="f['email'].hasError('required')">
+          Email required.
+        </mat-error>
+        <mat-error *ngIf="f['email'].hasError('fieldExist')">
+          The email already exist.
+        </mat-error>
+        <mat-error *ngIf="f['email'].hasError('email')">
+          The email format is incorrect.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxLayout.xs="row" fxFlex="1 1 calc(50% - 1rem)">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="f['password'].hasError('required')">
+          Password required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxLayout.xs="row" fxFlex="1 1 calc(50% - 1rem)">
+        <mat-label>Confirm password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="f['confirmPassword'].hasError('required')">
+          Confirm required.
+        </mat-error>
+        <mat-error *ngIf="f['confirmPassword'].hasError('matchOther')">
+          The passwords does not match.
+        </mat-error>
+      </mat-form-field>
+
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<div class="buttons margin-top" fxLayout="row" fxLayoutAlign="end">
+  <button mat-raised-button color="primary" [disabled]="!form.valid || submitted===true" (click)="create()">
+    Create
+  </button>
+</div>
