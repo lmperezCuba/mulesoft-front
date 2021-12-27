@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentTheme = 'light';
   elementsOnCard = 0;
   productsSuscription: Subscription | undefined;
+  userInfo: any
 
   constructor(
     private store: Store<{ cartItems: ICartItem[] }>,
@@ -33,7 +34,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.loadTheme();
     this.cartItems$.subscribe(x => {
       this.elementsOnCard = x.length;
-    })
+    });
+    this.userInfo = this.securityService.getUserInfo();
   }
 
   ngOnDestroy(): void {

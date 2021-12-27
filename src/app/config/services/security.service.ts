@@ -16,16 +16,10 @@ export class SecurityService {
     return Object.keys(this.permissionsService.getPermissions()).length;
   }
 
-  /**
-   * LogIn the system
-   */
-  logIn(username: string, password: string): boolean {
-    if (username === 'admin' && password === '123') {
-      // this.isLogged = true;
-      this.router.navigate(['admin'])
-      return true;
-    }
-    return false;
+  getUserInfo() {
+    const jwt = localStorage.getItem('jwt');
+    const userInfo = JSON.parse(jwt as string)['userInfo'];
+    return userInfo;
   }
 
   logout() {
@@ -54,7 +48,7 @@ export class SecurityService {
    * @param fakeJWT 
    */
   fakeDEcodeJWT(fakeJWT: string | null = '') {
-    if(fakeJWT === null) return {};
+    if (fakeJWT === null) return {};
     return JSON.parse(fakeJWT);
   }
 }

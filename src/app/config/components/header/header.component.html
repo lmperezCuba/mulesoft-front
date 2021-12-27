@@ -47,7 +47,7 @@
 
 <mat-menu #menuProfile="matMenu">
   <button mat-menu-item>
-    <mat-icon>person</mat-icon> Profile
+    <mat-icon>person</mat-icon> {{userInfo.username}}
   </button>
   <button mat-menu-item routerLink="/public/shopping-list" *ngxPermissionsOnly="['USER']">
     <mat-icon>local_mall</mat-icon> Shopping list

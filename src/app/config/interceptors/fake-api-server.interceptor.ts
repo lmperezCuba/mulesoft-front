@@ -10,6 +10,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { DbService } from '../../fake_server/db.service';
 import { Classes } from '../../fake_server/classes.enum';
+import { User } from '../../fake_server/dataTypes/user.class';
 
 @Injectable()
 export class FakeApiServerInterceptor implements HttpInterceptor {
@@ -43,14 +44,19 @@ export class FakeApiServerInterceptor implements HttpInterceptor {
         data = { count: roles.length, items: roles }
         break;
       case 'http://localhost:3000/apiv1/login':
-        console.log('login');
-        console.log(request.body);
         const { username, password } = request.body as { username: string, password: string };
         // Simulated seed
         if (username === 'admin' && password === '123') {
           data = { claims: ['ADMIN'] }
         } else if (username === 'user' && password === '123') {
           data = { claims: ['USER'] }
+        } else {
+          const users: User[] = this.fakeDBRepository.findAll(Classes.users) as User[];
+          const user = users.find(x => x.username === username && x.password === password);
+          if(user)
+          data = { claims: ['USER'], userInfo: user }
+          else
+          throw new Error('Incorrect credentials');
         }
         break;
       case 'http://localhost:3000/apiv1/buy':
