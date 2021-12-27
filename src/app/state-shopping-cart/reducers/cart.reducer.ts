@@ -41,6 +41,9 @@ export const cartItemsReducer = createReducer(
     return newState;
   }),
   on(retrievedCartItems, (state, { cartItems }) => cartItems),
-  on(clearCart, (state) => { return [] }),
+  on(clearCart, (state) => { 
+    localStorage.setItem('cart', JSON.stringify([]));
+    return [];
+   }),
 );
 
