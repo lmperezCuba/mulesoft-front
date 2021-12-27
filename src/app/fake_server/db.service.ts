@@ -20,8 +20,8 @@ export class DbService {
   save<T>(classType: Classes, data: T): any {
     switch (classType) {
       case 'users':
-        const { username, password, email } = data as unknown as User;
-        const user: User = new User(username, password, email);
+        const { username, password, email, roles } = data as unknown as User;
+        const user: User = new User(username, password, email, roles);
         const users: User[] = this.getItem('users');
         users.push(user);
         localStorage.setItem('users', JSON.stringify(users));
@@ -36,9 +36,9 @@ export class DbService {
       case 'roles':
         const { rolename } = data as unknown as Role;
         const role: Role = new Role(rolename);
-        const roles: Role[] = this.getItem('roles');
-        roles.push(role);
-        localStorage.setItem('roles', JSON.stringify(roles));
+        const _roles: Role[] = this.getItem('roles');
+        _roles.push(role);
+        localStorage.setItem('roles', JSON.stringify(_roles));
         return role;
       case 'sells':
         const { items, userId } = data as unknown as Sell;

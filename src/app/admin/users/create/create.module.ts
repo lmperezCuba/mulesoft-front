@@ -11,6 +11,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CreateRoutingModule } from './create-routing.module';
 import { CreateComponent } from './create.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { CreateComponent } from './create.component';
     MatInputModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    MatSelectModule
   ],
   providers: [CreateService]
 })
