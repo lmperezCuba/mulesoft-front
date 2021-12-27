@@ -6,7 +6,7 @@
       <form [formGroup]="loginForm" fxLayout="column">
         <mat-form-field appearance="outline">
           <mat-label>Email or phone</mat-label>
-          <input matInput placeholder="" formControlName="username" autofocus="" />
+          <input matInput placeholder="admin, user" formControlName="username" autofocus="" />
         </mat-form-field>
 
         <div fxLayout="row" fxLayoutAlign="start">
@@ -15,18 +15,21 @@
 
         <mat-form-field appearance="outline" fxLayout="column">
           <mat-label>Enter your password</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" placeholder="123">
           <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
         </mat-form-field>
 
+        <section *ngIf="incorrectCredentials===true">
+          <p class="error">Sus credenciales son incorrectas.</p>
+        </section>
       </form>
 
       <div class="buttons" fxLayout="row" fxLayoutAlign="space-between">
         <a mat-button color="primary" [routerLink]="[ '/' ]" class="link">Create account</a>
-        <button [disabled]="!loginForm.valid" mat-raised-button color="primary">
+        <button [disabled]="!loginForm.valid" mat-raised-button color="primary" (click)="logIn()">
           Aceptar
         </button>
       </div>

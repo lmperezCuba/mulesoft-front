@@ -6,7 +6,11 @@
   $b: map.get($color-config, background);
 
   .form-container {
-    background-color: mat.get-color-from-palette($b, 'background') !important;
+    background-color: mat.get-color-from-palette($b, "background") !important;
+  }
+
+  .error {
+    color: mat.get-color-from-palette($b, "error") !important;
   }
 }
 

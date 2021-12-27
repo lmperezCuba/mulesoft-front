@@ -2,34 +2,63 @@
   <button *ngIf="hasMenu" aria-label="Toggle sidenav" mat-icon-button (click)="clickDrawer()">
     <mat-icon class="menu-icon">menu</mat-icon>
   </button>
-  <span>Mulesoft Dashboard</span>
+  <span fxHide.lt-sm>{{title}}</span>
   <span class="toolbar-spacer"></span>
-  <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon">
+  <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon"
+    *ngxPermissionsOnly="['ADMIN']">
     <mat-icon routerLink="['/dashboard']">home</mat-icon>
   </button>
-  <button mat-icon-button class="control-item favorite-icon" aria-label="icon-button with heart icon">
+  <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon"
+    *ngxPermissionsOnly="['USER']">
+    <mat-icon (click)="goStorefront()">storefront</mat-icon>
+  </button>
+  <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon"
+    *ngxPermissionsOnly="['USER']" [matMenuTriggerFor]="menu">
+    <mat-icon [matBadge]="elementsOnCard" [matBadgeHidden]="elementsOnCard===0" matBadgeColor="accent">shopping_cart
+    </mat-icon>
+  </button>
+  <button mat-icon-button class="control-item favorite-icon" aria-label="icon-button with heart icon"
+    [matMenuTriggerFor]="menuNotifications">
     <mat-icon>notifications</mat-icon>
   </button>
   <button mat-icon-button class="control-item" aria-label="icon-button with help outline icon">
     <mat-icon>help_outlined</mat-icon>
   </button>
-  <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon">
+  <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon"
+    [matMenuTriggerFor]="menuProfile">
     <mat-icon>account_circle</mat-icon>
   </button>
-  <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon" (click)="logout()">
-    <mat-icon>logout</mat-icon>
-  </button>
-  <ng-container *ngIf="currentTheme==='dark'; else darkIcon">
-    <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon"
-      (click)="changeTheme()">
+
+  <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon"
+    (click)="changeTheme()">
+    <ng-container *ngIf="currentTheme==='dark'; else darkIcon">
       <mat-icon>light_mode</mat-icon>
-    </button>
-  </ng-container>
-  <ng-template #darkIcon>
-    <button mat-icon-button class="control-item" aria-label="icon-button with account circle icon"
-      (click)="changeTheme()">
+    </ng-container>
+    <ng-template #darkIcon>
       <mat-icon>dark_mode</mat-icon>
-    </button>
-  </ng-template>
+    </ng-template>
+  </button>
 
 </mat-toolbar>
+
+<mat-menu #menu="matMenu">
+  <app-cart></app-cart>
+</mat-menu>
+
+<mat-menu #menuProfile="matMenu">
+  <button mat-menu-item>
+    <mat-icon>person</mat-icon> {{userInfo?.username}}
+  </button>
+  <button mat-menu-item routerLink="/public/shopping-list" *ngxPermissionsOnly="['USER']">
+    <mat-icon>local_mall</mat-icon> Shopping list
+  </button>
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>logout</mat-icon> Logout
+  </button>
+</mat-menu>
+
+<mat-menu #menuNotifications="matMenu">
+  <div class="menuNotifications">
+    <mat-icon>notifications_none</mat-icon>
+  </div>
+</mat-menu>

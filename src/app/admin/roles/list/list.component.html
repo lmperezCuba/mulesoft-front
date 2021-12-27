@@ -1,0 +1,38 @@
+<div class="buttons" fxLayout="row" fxLayoutAlign="start">
+  <button mat-raised-button color="primary" [routerLink]="[ '../create' ]">
+    Create
+  </button>
+</div>
+
+<mat-card>
+  <mat-card-content>
+    <app-mat-data-table [selectAvailable]="true" #tabla [serviceData]="listService" [verticalLine]="true">
+      <app-mat-column-table title="Rolename" matColumnDef="rolename" type="string" [sort]="true" defaultFilter="startswith">
+        <td mat-cell *matCellDef="let row">
+          {{row.rolename}}
+        </td>
+      </app-mat-column-table>
+      <app-mat-option-table title="Opciones" matColumnDef="option">
+        <td mat-cell *matCellDef="let row" style="padding-right: 0">
+          <div style="text-align: center">
+            <div style="display: inline-flex">
+              <button [routerLink]="['../edit/' + row.id]" (click)="$event.stopPropagation();" mat-icon-button
+                mat-button matTooltip="Editar" matTooltipPosition="above">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+          </div>
+        </td>
+      </app-mat-option-table>
+      <app-mat-paginator-data-table [pageSizeOptions]="[10,25,100]">
+      </app-mat-paginator-data-table>
+
+      <app-mat-error-data-table>
+        Existen problemas al cargar los datos.
+        <br>
+        <button mat-raised-button color="warn" (click)="tabla.reloadData()">Recargar</button>
+      </app-mat-error-data-table>
+    </app-mat-data-table>
+
+  </mat-card-content>
+</mat-card>

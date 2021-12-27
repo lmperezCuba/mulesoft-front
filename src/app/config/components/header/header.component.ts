@@ -1,28 +1,45 @@
-import { Component, EventEmitter, HostBinding, Input, OnInit, Output, Renderer2 } from '@angular/core';
-import { OverlayContainer } from '@angular/cdk/overlay';
+import { Router } from '@angular/router';
+import { ICartItem } from './../../../state-shopping-cart/interfaces/cart-item.interface';
+import { Component, EventEmitter, HostBinding, Input, OnInit, Output, Renderer2, OnDestroy } from '@angular/core';
 import { SecurityService } from '../../services/security.service';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
+  cartItems$ = this.store.select('cartItems');
   @Output() drawer: EventEmitter<boolean> = new EventEmitter();
   @HostBinding('class') className = '';
   @Input() theme: boolean | undefined;
   @Input() hasMenu = false;
+  @Input() title = 'Mulesoft Dashboard';
   activeDrawer = true;
   currentTheme = 'light';
+  elementsOnCard = 0;
+  productsSuscription: Subscription | undefined;
+  userInfo: any
 
   constructor(
-    // private overlay: OverlayContainer,
+    private store: Store<{ cartItems: ICartItem[] }>,
     private securityService: SecurityService,
-    private renderer: Renderer2
-  ) {}
+    private renderer: Renderer2,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.loadTheme();
+    this.cartItems$.subscribe(x => {
+      this.elementsOnCard = x.length;
+    });
+    this.userInfo = this.securityService.getUserInfo();
+  }
+
+  ngOnDestroy(): void {
+    this.productsSuscription?.unsubscribe();
   }
 
   /**
@@ -67,7 +84,11 @@ export class HeaderComponent implements OnInit {
   /**
    * Logout front the app
    */
-  logout(){
+  logout() {
     this.securityService.logout();
+  }
+
+  goStorefront() {
+    this.router.navigate(['/']);
   }
 }
