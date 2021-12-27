@@ -37,13 +37,11 @@ export class CreateComponent {
     this.createService.create({
       rolename: this.f['rolename'].value,
     }).pipe(first(),
-      tap(x => console.log(x)),
       catchError(error => {
         this.securityService.handleError(error);
         return of();
       }))
       .subscribe(x => {
-        console.log('role created');
         this.submitted = false;
         this.router.navigate(['admin/roles/list'])
       });

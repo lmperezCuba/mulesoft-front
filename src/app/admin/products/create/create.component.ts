@@ -10,7 +10,7 @@ import { CreateService } from './create.service';
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss']
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent {
   submitted = false;
   form: FormGroup = new FormGroup({
     name: new FormControl('', {
@@ -28,10 +28,6 @@ export class CreateComponent implements OnInit {
   constructor(private createService: CreateService, private router: Router,
     private securityService: SecurityService) { }
 
-  ngOnInit(): void {
-    console.log('');
-  }
-
   get f(): { [key: string]: AbstractControl } {
     return this.form.controls;
   }
@@ -46,13 +42,11 @@ export class CreateComponent implements OnInit {
       name: this.f['name'].value,
       price: this.f['price'].value,
     }).pipe(first(),
-      tap(x => console.log(x)),
       catchError(error => {
         this.securityService.handleError(error);
         return of();
       }))
       .subscribe(x => {
-        console.log('product created');
         this.submitted = false;
         this.router.navigate(['admin/products/list'])
       });

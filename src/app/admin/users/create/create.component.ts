@@ -10,7 +10,7 @@ import { tap, first, catchError, of } from 'rxjs';
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss']
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent {
   hide = true;
   submitted = false;
   form: FormGroup = new FormGroup({
@@ -35,11 +35,6 @@ export class CreateComponent implements OnInit {
 
   constructor(private createService: CreateService, private router: Router,
     private securityService: SecurityService) { }
-
-  ngOnInit(): void {
-    console.log('');
-
-  }
 
   get f(): { [key: string]: AbstractControl } {
     return this.form.controls;
@@ -96,13 +91,11 @@ matchOtherValidator(otherControlName: string) {
       email: this.f['email'].value,
       password: this.f['password'].value
     }).pipe(first(),
-      tap(x => console.log(x)),
       catchError(error => {
         this.securityService.handleError(error);
         return of();
       }))
       .subscribe(x => {
-        console.log('user created');
         this.submitted = false;
         this.router.navigate(['admin/users/list'])
       });

@@ -93,8 +93,6 @@ export class DbService {
     // SAGA transcaction simulation 
     const transaction = true;
     const errors: string[] = [];
-    console.log(items);
-    
     //items.forEach(item => {
       // const product: Product = (this.findAll(Classes.products) as Product[])
       //   .find((x: Product) => x.id === item.uuid);

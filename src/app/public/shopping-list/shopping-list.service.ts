@@ -31,8 +31,6 @@ export class ShoppingListService {
       .pipe(
         first(),
         map((x: IPaginateOutDTO<ISell>) => {
-          console.log(x);
-          
           return {
             count: x.count,
             items: x.items

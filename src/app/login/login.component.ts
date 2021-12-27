@@ -9,7 +9,7 @@ import { NgxPermissionsService } from 'ngx-permissions';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   hide = true;
   loginForm: FormGroup;
   incorrectCredentials = false;
@@ -26,10 +26,6 @@ export class LoginComponent implements OnInit {
         validators: [Validators.required]
       })
     })
-  }
-
-  ngOnInit(): void {
-    console.log('Not implementes yet');
   }
 
   get f(): { [key: string]: AbstractControl } {

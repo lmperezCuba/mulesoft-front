@@ -14,8 +14,6 @@ export class JwtInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     console.log('Fake JWT verify');
-console.log(request.url);
-
     const accessToken = localStorage.getItem('jwt'); // get fake accessToken 
      const isLoggedIn = accessToken !== null
     if (isLoggedIn) {

@@ -408,8 +408,7 @@ export class DataGridComponent
                 this.decorationFilterData()
               )
               .pipe(catchError(() => of(null)),
-                distinctUntilChanged(), tap(() => {console.log('pass1');
-                }));
+                distinctUntilChanged());
           }),
           map((data: unknown) => {
             // Flip flag to show that loading has finished.
