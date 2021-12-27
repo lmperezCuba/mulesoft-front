@@ -7,11 +7,11 @@ const MENUITEMS: INavItem[] = [
     iconName: 'people',
     route: 'admin/users',
   },
-  {
+/*  {
     displayName: 'Roles',
     iconName: 'admin_panel_settings',
     route: 'admin/roles',
-  },
+  },*/
   {
     displayName: 'Products',
     iconName: 'production_quantity_limits',

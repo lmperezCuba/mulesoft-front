@@ -54,7 +54,7 @@ export class FakeApiServerInterceptor implements HttpInterceptor {
           const users: User[] = this.fakeDBRepository.findAll(Classes.users) as User[];
           const user = users.find(x => x.username === username && x.password === password);
           if (user)
-            data = { claims: ['USER'], userInfo: user }
+            data = { claims: user.roles, userInfo: user }
           else
             throw new Error('Incorrect credentials');
         }

@@ -13,6 +13,8 @@ import { tap, first, catchError, of } from 'rxjs';
 export class CreateComponent {
   hide = true;
   submitted = false;
+  roles = new FormControl();
+  roleList: string[] = ['ADMIN', 'USER'];
   form: FormGroup = new FormGroup({
     username: new FormControl('', {
       updateOn: 'change',
@@ -40,45 +42,43 @@ export class CreateComponent {
     return this.form.controls;
   }
 
-matchOtherValidator(otherControlName: string) {
+  matchOtherValidator(otherControlName: string) {
 
-  let thisControl: FormControl;
-  let otherControl: FormControl;
+    let thisControl: FormControl;
+    let otherControl: FormControl;
 
-  return function matchOtherValidate(control: FormControl) {
+    return function matchOtherValidate(control: FormControl) {
 
-    if (!control.parent) {
-      return null;
-    }
-
-    // Initializing the validator.
-    if (!thisControl) {
-      thisControl = control;
-      otherControl = control.parent.get(otherControlName) as FormControl;
-      if (!otherControl) {
-        throw new Error('matchOtherValidator(): other control is not found in parent group');
+      if (!control.parent) {
+        return null;
       }
-      otherControl.valueChanges.subscribe(() => {
-        thisControl.updateValueAndValidity();
-      });
-    }
 
-    if (!otherControl) {
+      // Initializing the validator.
+      if (!thisControl) {
+        thisControl = control;
+        otherControl = control.parent.get(otherControlName) as FormControl;
+        if (!otherControl) {
+          throw new Error('matchOtherValidator(): other control is not found in parent group');
+        }
+        otherControl.valueChanges.subscribe(() => {
+          thisControl.updateValueAndValidity();
+        });
+      }
+
+      if (!otherControl) {
+        return null;
+      }
+
+      if (otherControl.value !== thisControl.value) {
+        return {
+          matchOther: true
+        };
+      }
+
       return null;
+
     }
-
-    if (otherControl.value !== thisControl.value) {
-      return {
-        matchOther: true
-      };
-    }
-
-    return null;
-
   }
-}
-
-
 
   /**
    * Create a new user
@@ -89,7 +89,8 @@ matchOtherValidator(otherControlName: string) {
     this.createService.create({
       username: this.f['username'].value,
       email: this.f['email'].value,
-      password: this.f['password'].value
+      password: this.f['password'].value,
+      roles: this.roles.value
     }).pipe(first(),
       catchError(error => {
         this.securityService.handleError(error);
