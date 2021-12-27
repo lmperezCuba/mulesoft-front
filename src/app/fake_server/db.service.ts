@@ -89,17 +89,17 @@ export class DbService {
    * Simulate a sell
    * @param items to buy
    */
-  buy(items: ICartItem[]) {
+  buy(items: ICartItem[], userId: string) {
     // SAGA transcaction simulation 
     const transaction = true;
     const errors: string[] = [];
     //items.forEach(item => {
-      // const product: Product = (this.findAll(Classes.products) as Product[])
-      //   .find((x: Product) => x.id === item.uuid);
-      // check stock if(item.amount <= product.stock) 
+    // const product: Product = (this.findAll(Classes.products) as Product[])
+    //   .find((x: Product) => x.id === item.uuid);
+    // check stock if(item.amount <= product.stock) 
     //});
     if (transaction) {
-      this.save(Classes.sells, items);
+      this.save(Classes.sells, { items, userId });
     } else {
       throw new Error(errors.join())
     }

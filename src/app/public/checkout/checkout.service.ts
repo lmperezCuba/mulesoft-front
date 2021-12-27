@@ -1,3 +1,4 @@
+import { SecurityService } from './../../config/services/security.service';
 import { ICartItem } from './../../state-shopping-cart/interfaces/cart-item.interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -6,7 +7,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class CheckoutService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private securityService: SecurityService) { }
 
   /**
    * Buy the products on the shopping cart.
@@ -15,7 +16,8 @@ export class CheckoutService {
    * @returns server sell
    */
   buy(elementsCart: ICartItem[]): Observable<any> {
-    return this.httpClient.post<any>('http://localhost:3000/apiv1/buy', { items: elementsCart, userId: 'user'});
+    return this.httpClient.post<any>('http://localhost:3000/apiv1/buy', 
+      { items: elementsCart, userId: this.securityService.getUserInfo()['userId']});
   }
 
 }

@@ -60,12 +60,11 @@ export class FakeApiServerInterceptor implements HttpInterceptor {
         }
         break;
       case 'http://localhost:3000/apiv1/buy':
-        data = this.fakeDBRepository.buy(request.body as ICartItem[]);
+        const { items, userId } = request.body as { items: ICartItem[], userId: string };
+        data = this.fakeDBRepository.buy(items, userId);
         break;
       default:
         if (request.url.startsWith('http://localhost:3000/apiv1/sells/')) {
-          // console.log(request.url.substr('http://localhost:3000/apiv1/sells/'.length));
-
         }
         const sells = this.fakeDBRepository.findAll(Classes.sells);
         data = { count: sells.length, items: sells }
