@@ -47,27 +47,25 @@ export class FakeApiServerInterceptor implements HttpInterceptor {
         const { username, password } = request.body as { username: string, password: string };
         // Simulated seed
         if (username === 'admin' && password === '123') {
-          data = { claims: ['ADMIN'] }
+          data = { claims: ['ADMIN'], userInfo: { username: 'admin' } }
         } else if (username === 'user' && password === '123') {
-          data = { claims: ['USER'] }
+          data = { claims: ['USER'], userInfo: { username: 'user' } }
         } else {
           const users: User[] = this.fakeDBRepository.findAll(Classes.users) as User[];
           const user = users.find(x => x.username === username && x.password === password);
-          if(user)
-          data = { claims: ['USER'], userInfo: user }
+          if (user)
+            data = { claims: ['USER'], userInfo: user }
           else
-          throw new Error('Incorrect credentials');
+            throw new Error('Incorrect credentials');
         }
         break;
       case 'http://localhost:3000/apiv1/buy':
-        console.log(request.body);
-        
         data = this.fakeDBRepository.buy(request.body as ICartItem[]);
         break;
-        default:
-        if (request.url.startsWith('http://localhost:3000/apiv1/sells/')){
+      default:
+        if (request.url.startsWith('http://localhost:3000/apiv1/sells/')) {
           console.log(request.url.substr('http://localhost:3000/apiv1/sells/'.length));
-          
+
         }
         const sells = this.fakeDBRepository.findAll(Classes.sells);
         data = { count: sells.length, items: sells }
