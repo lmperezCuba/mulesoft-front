@@ -21,11 +21,9 @@ WORKDIR /home/node/app
 
 RUN npm install @angular/cli
 
-# COPY --chown=node:node package*.json ./
-# RUN chown -R node:node /home/node/app
-# USER node
+COPY package*.json ./
 
-# RUN npm run install
+RUN npm install
 #RUN yarn config set strict-ssl false \
 #&& yarn config set ignore-engines true \
 #&& yarn install --network-timeout 1000000 --no-optional \
@@ -47,7 +45,7 @@ WORKDIR /home/node/app
 
 COPY --from=builder /home/node/app .
 
-RUN ["npm", "run", "build:prod"]
+RUN ["npm", "run", "build"]
 
 #----------------------
 #   Production stage
@@ -55,6 +53,6 @@ RUN ["npm", "run", "build:prod"]
 
 FROM nginx as production
 
-COPY --from=deployment /home/node/app/dist /var/www/html
+COPY --from=deployment /home/node/app/dist/mulesoft-frontend-angular /var/www/html
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 
