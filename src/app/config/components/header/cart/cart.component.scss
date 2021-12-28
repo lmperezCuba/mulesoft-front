@@ -3,9 +3,6 @@
 .mat-list-base .mat-list-option {
   padding-top: 5px;
   min-height: 25px !important;
-  &:last-child() {
-    border-bottom: none !important;
-  }
   img.square-image {
     height: 2.5rem;
     width: 2.5rem;
