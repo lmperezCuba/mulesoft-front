@@ -49,3 +49,5 @@ Thumbs.db
 .env
 docker-compose.yml
 Dockerfile
+# Local Netlify folder
+.netlify
